@@ -2,9 +2,9 @@ package cop701.common;
 
 public enum Color {
 	R("Red"),
-	G("Green"),
+	B("Blue"),
 	Y("Yellow"),
-	B("Blue");
+	G("Green");
 	
 	private String fullName;
 	

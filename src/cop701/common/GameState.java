@@ -25,7 +25,7 @@ public class GameState {
 		
 	}
 	
-	public void updatePiece(Integer player, Integer pieceId, Integer stepsToMove) {
+	public void updatePiece(Integer player, Move move) {
 		// TODO to be implemented
 	}
 	
