@@ -25,4 +25,12 @@ public class Square {
 		this.noOfPieces = noOfPieces;
 	}
 	
+	public void updatePieces(int player, int pieceCount) {
+		noOfPieces[player] = pieceCount;
+	}
+	
+	public void addPieces(int player, int pieceDelta) {
+		noOfPieces[player] += pieceDelta;
+	}
+	
 }
