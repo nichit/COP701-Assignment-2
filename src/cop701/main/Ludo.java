@@ -13,6 +13,8 @@ import cop701.common.Move;
 public class Ludo {
 
 	public static void main(String[] args) {
+		//manualMode();
+		
 		Scanner s = new Scanner(System.in);
 		String input;
 		String[] tokens;
@@ -96,7 +98,22 @@ public class Ludo {
 			}
 			
 		}
-
+	}
+		
+	public static void manualMode() {
+		new LudoSimpleInteractiveUI();
+		Scanner s = new Scanner(System.in);
+		while (s.hasNextLine()) {
+			String str = s.nextLine();
+			System.err.println("[bot] " + str);
+		}
+		s.close();
+	}
+	
+	public static void submitText(String input) {
+		System.err.println("[input] " + input);
+		System.out.println(input);
+		System.out.flush();
 	}
 	
 }
