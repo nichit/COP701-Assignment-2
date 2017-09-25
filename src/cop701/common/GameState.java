@@ -24,6 +24,11 @@ public class GameState {
 		initGameBoard();
 	}
 
+	public GameState(GameState obj) {
+		this.pieces = obj.pieces;
+		this.board = obj.board;
+	}
+	
 	private void initGameBoard() {
 		int i,j;
 		for(i=0;i<=51;++i) {
