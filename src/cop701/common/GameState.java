@@ -23,14 +23,18 @@ public class GameState {
 	public GameState(Map<Integer,Color> colorMap) {
 		this.colorMap = colorMap;
 		initGameBoard();
+		initPlayer();
 	}
 
 	public GameState(GameState obj) {
-		this.pieces = obj.pieces;
-		this.board = obj.board;
+		for (int i=0; i<2; i++)
+			for (int j=0; j<4; j++)
+				this.pieces[i][j] = obj.pieces[i][j];
+		for (int i=0; i<200; i++)
+			this.board[i] = obj.board[i].copy();
 	}
 	
-	private void initGameBoard() {		
+	private void initGameBoard() {
 		int i,j;
 		for (i=0; i<200; i++)
 			board[i] = new Square();
@@ -46,6 +50,12 @@ public class GameState {
 				board[113+13*i+j].setIsStar(true);
 			}
 		}
+	}
+	
+	private void initPlayer() {
+		for (int i=0; i<2; i++)
+			for (int j=0; j<4; j++)
+				pieces[i][j] = -1;
 	}
 	
 

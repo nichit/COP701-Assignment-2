@@ -32,5 +32,18 @@ public class Square {
 	public void addPieces(int player, int pieceDelta) {
 		noOfPieces[player] += pieceDelta;
 	}
+
+	public Square copy() {
+		Square c = new Square();
+		c.isStar = this.isStar;
+		c.noOfPieces[0] = this.noOfPieces[0];
+		c.noOfPieces[1] = this.noOfPieces[1];
+		return c;
+	}
+	
+	@Override
+	public String toString() {
+		return "[" + this.noOfPieces[0] + "," + this.noOfPieces[1] + "]" + (this.isStar ? " *" : "");
+	}
 	
 }

@@ -34,9 +34,9 @@ public class Ludo {
 		int gameMode = Integer.valueOf(tokens[2]);
 		Map<Integer, Color> colorMap = new HashMap<Integer, Color>();
 		for (Color c : Color.values()) {
-			if (c.ordinal() == gameMode * 2 + pid)
+			if (c.ordinal() == gameMode + pid * 2)
 				colorMap.put(0, c);
-			if (c.ordinal() == gameMode * 2 + 1-pid)
+			if (c.ordinal() == gameMode + (1-pid) * 2)
 				colorMap.put(1, c);
 		}
 		Color playerColor = colorMap.get(0);
