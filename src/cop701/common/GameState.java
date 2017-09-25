@@ -30,11 +30,14 @@ public class GameState {
 		this.board = obj.board;
 	}
 	
-	private void initGameBoard() {
+	private void initGameBoard() {		
 		int i,j;
+		for (i=0; i<200; i++)
+			board[i] = new Square();
+		
 		for(i=0;i<=51;++i) {
 			if(i%13==1 || i%13==9)
-				board[i].setIsStar(true); 
+				board[i].setIsStar(true);
 		}
 		
 		//Walk Of Fame Steps
