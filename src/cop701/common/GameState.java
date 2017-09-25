@@ -39,38 +39,43 @@ public class GameState {
 		}
 	}
 	
-	public void updatePiece(Integer player, Integer pieceId, Integer stepsToMove) {
+
+	public void updatePiece(Integer player, Move move) {
 		//Update the state of two squares
-		if(pieces[player][pieceId] == -1) {
-			pieces[player][pieceId] = 1;
-			board[1].getNoOfPieces()[player]++;
-		}
-		
-		int nextSquareNo = pieces[player][pieceId] + stepsToMove;
-		
-		if(player == 0) {
-			if(nextSquareNo > 51 && nextSquareNo < 152) {
-				nextSquareNo = 100 + nextSquareNo;	
+		if(move.getSteps() != 0) {
+			
+			if(pieces[player][move.getPieceId()] == -1) {
+				pieces[player][move.getPieceId()] = player*26 + 1;
+				board[player*26 + 1].getNoOfPieces()[player]++;
 			}
-		}
-		else {
-			if(nextSquareNo > 25 && nextSquareNo < 126) {
-				nextSquareNo = 100 + nextSquareNo;	
+			
+			int nextSquareNo = pieces[player][move.getPieceId()] + move.getSteps();
+			
+			if(player == 0) {
+				if(nextSquareNo > 51 && nextSquareNo < 152) {
+					nextSquareNo = 100 + nextSquareNo;	
+				}
 			}
+			else {
+				if(nextSquareNo > 25 && nextSquareNo < 126) {
+					nextSquareNo = 100 + nextSquareNo;	
+				}
+			}
+			
+			board[pieces[player][move.getPieceId()]].getNoOfPieces()[player]--;
+			board[nextSquareNo].getNoOfPieces()[player]++;
+			pieces[player][move.getPieceId()] = nextSquareNo;
 		}
-		
-		board[pieces[player][pieceId]].getNoOfPieces()[player]--;
-		board[nextSquareNo].getNoOfPieces()[player]++;
-		pieces[player][pieceId] = nextSquareNo;
 	}
 	
-	public boolean validateMove(Integer player, Integer pieceId, Integer stepsToMove) {
-		
-		if(pieces[player][pieceId] == -1)
-			if(stepsToMove != 1)	return false;
+	public boolean validateMove(Integer player, Move move) {
+		if(move.getSteps() == 0)
+			return true;
+		if(pieces[player][move.getPieceId()] == -1)
+			if(move.getSteps() != 1)	return false;
 			else					return true;
 		
-		int nextSquareNo = pieces[player][pieceId] + stepsToMove;
+		int nextSquareNo = pieces[player][move.getPieceId()] + move.getSteps();
 		
 		if(player == 0) {
 			if(nextSquareNo > 51 && nextSquareNo < 152) {
@@ -91,6 +96,7 @@ public class GameState {
 		}
 				 
 		return true;
+
 	}
 	
 	public Integer[][] getPieces() {
