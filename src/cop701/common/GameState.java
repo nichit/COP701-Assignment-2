@@ -20,7 +20,8 @@ public class GameState {
 	
 	private Square board[] = new Square[200];
 	
-	public GameState() {
+	public GameState(Map<Integer,Color> colorMap) {
+		this.colorMap = colorMap;
 		initGameBoard();
 	}
 
@@ -49,13 +50,16 @@ public class GameState {
 		//Update the state of two squares
 		if(move.getSteps() != 0) {
 			
+			// Starting a piece
 			if(pieces[player][move.getPieceId()] == -1) {
 				pieces[player][move.getPieceId()] = player*26 + 1;
-				board[player*26 + 1].getNoOfPieces()[player]++;
+				board[player*26 + 1].addPieces(player, 1);
+				return;
 			}
 			
 			int nextSquareNo = pieces[player][move.getPieceId()] + move.getSteps();
 			
+			// Going into home column
 			if(player == 0) {
 				if(nextSquareNo > 51 && nextSquareNo < 152) {
 					nextSquareNo = 100 + nextSquareNo;	
@@ -67,8 +71,18 @@ public class GameState {
 				}
 			}
 			
-			board[pieces[player][move.getPieceId()]].getNoOfPieces()[player]--;
-			board[nextSquareNo].getNoOfPieces()[player]++;
+			// We step on opponents piece! Yeah!
+			if (!board[nextSquareNo].getIsStar() && board[nextSquareNo].getNoOfPieces()[1-player] > 0) {
+				board[nextSquareNo].updatePieces(1-player, 0);
+				for (int i=0; i<4; i++)
+					if (pieces[1-player][i] == nextSquareNo) {
+						pieces[1-player][i] = -1;
+					}
+			}
+			
+			// Now we move our piece
+			board[pieces[player][move.getPieceId()]].updatePieces(player, -1);
+			board[nextSquareNo].updatePieces(player, 1);
 			pieces[player][move.getPieceId()] = nextSquareNo;
 		}
 	}
@@ -102,6 +116,10 @@ public class GameState {
 				 
 		return true;
 
+	}
+	
+	public Map<Integer, Color> getColorMap() {
+		return colorMap;
 	}
 	
 	public Integer[][] getPieces() {
