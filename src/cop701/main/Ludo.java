@@ -28,6 +28,7 @@ public class Ludo {
 		
 		// Init game state
 		input = s.nextLine(); tokens = input.split(" ");
+		System.err.println("[input] " + input); System.err.flush();
 		int pid = Integer.valueOf(tokens[0]);
 		pid--;
 		int timeLimit = Integer.valueOf(tokens[1]); // in seconds
@@ -63,8 +64,11 @@ public class Ludo {
 		if (pid == 1) { // 2nd player initialization
 			// Get dice
 			input = s.nextLine(); tokens = input.split(" ");
+			System.err.println("[input] " + input); System.err.flush();
 			// Get move
 			input = s.nextLine(); tokens = input.split("<next>");
+			System.err.println("[input] " + input); System.err.flush();
+			
 			for (int i=0; i<tokens.length; i++) {
 				if (!tokens[i].equals("NA")) {
 					gameState.updatePiece(1, new Move(tokens[i]));
@@ -72,11 +76,14 @@ public class Ludo {
 			}
 		}
 		
-		while (timeLimit > 0) {			
+		while (timeLimit > 0) {
+			System.err.println("[bot] <THROW>"); System.err.flush();
 			System.out.println("<THROW>"); System.out.flush();
 			
 			// Get your dice
 			input = s.nextLine(); tokens = input.split(" ");
+			System.err.println("[input] " + input); System.err.flush();
+			
 			List<Integer> diceSet = new ArrayList<Integer>();
 			for (int i=2; i<tokens.length; i++)
 				diceSet.add(Integer.valueOf(tokens[i]));
@@ -90,13 +97,16 @@ public class Ludo {
 			}
 			String moveStr = String.join("<next>", moveStrList);
 			
+			System.err.println("[bot] " + moveStr); System.err.flush();
 			System.out.println(moveStr); System.out.flush();
 			
 			// Get dice / REPEAT
 			input = s.nextLine(); tokens = input.split(" ");
+			System.err.println("[input] " + input); System.err.flush();
 			if (!tokens[0].equals("REPEAT")) {
 				// Get move
 				input = s.nextLine(); tokens = input.split("<next>");
+				System.err.println("[input] " + input); System.err.flush();
 				for (int i=0; i<tokens.length; i++) {
 					if (!tokens[i].equals("NA")) {
 						gameState.updatePiece(1, new Move(tokens[i]));
