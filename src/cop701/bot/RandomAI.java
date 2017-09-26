@@ -20,8 +20,6 @@ public class RandomAI implements AI {
 			for(int j=0;j<4;++j) {	
 				int curPiece = pieceIds.get(j);
 				Move move = new Move(curPiece, diceThrow.get(i));
-				if(dummyGameState.getPieces()[0][curPiece] == -1 && diceThrow.get(i) == 6)
-					move.setSteps(1);
 				boolean isValid = dummyGameState.validateMove(0,move);
 				if(isValid)	{
 					moves.add(move);

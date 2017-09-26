@@ -104,8 +104,8 @@ public class GameState {
 		if(move.getSteps() == 0)
 			return true;
 		if(pieces[player][move.getPieceId()] == -1)
-			if(move.getSteps() != 1)	return false;
-			else					return true;
+			if(move.getSteps() == 1 || move.getSteps() == 6)	return true;
+			else	return false;
 		
 		int nextSquareNo = pieces[player][move.getPieceId()] + move.getSteps();
 		
