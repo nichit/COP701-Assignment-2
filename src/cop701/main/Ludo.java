@@ -74,6 +74,7 @@ public class Ludo {
 					gameState.updatePiece(1, new Move(tokens[i]));
 				}	
 			}
+			printPieces(gameState);
 		}
 		
 		while (timeLimit > 0) {
@@ -111,24 +112,48 @@ public class Ludo {
 			
 			System.err.println("[bot] " + moveStr); System.err.flush();
 			System.out.println(moveStr); System.out.flush();
+			printPieces(gameState);
 			
 			// Get opponent dice / REPEAT
 			input = s.nextLine(); tokens = input.split(" ");
 			System.err.println("[input] " + input); System.err.flush();
 			if (!tokens[0].equals("REPEAT")) {
-				// Get move
-				input = s.nextLine(); tokens = input.split("<next>");
-				System.err.println("[input] " + input); System.err.flush();
-				for (int i=0; i<tokens.length; i++) {
-					if (!tokens[i].equals("NA")) {
-						gameState.updatePiece(1, new Move(tokens[i]));
-					}	
-				}
+				boolean oppoRepeat = false;
+				do {
+					if (oppoRepeat) {
+						// Get opponent dice
+						input = s.nextLine(); tokens = input.split(" ");
+						System.err.println("[input] " + input); System.err.flush();
+					}
+					oppoRepeat = false;
+					// Get move
+					input = s.nextLine(); tokens = input.split("<next>");
+					System.err.println("[input] " + input); System.err.flush();
+					for (int i=0; i<tokens.length; i++) {
+						if (!tokens[i].equals("NA") && !tokens[i].equals("REPEAT")) {
+							gameState.updatePiece(1, new Move(tokens[i]));
+						}
+						if (tokens[i].equals("REPEAT")) {
+							oppoRepeat = true;
+						}
+					}
+					printPieces(gameState);
+				} while (oppoRepeat);
 			}
 			
 		}
 		
 		s.close();
+	}
+	
+	public static void printPieces(GameState gameState) {
+		for (int i=0; i<2; i++) {
+			System.err.print("Player " + i + ": [ ");
+			for (int j=0; j<4; j++) {
+				System.err.print(gameState.getPieces()[i][j] + " ");
+			}
+			System.err.println("]"); System.err.flush();
+		}
 	}
 		
 	public static void manualMode() {
