@@ -103,6 +103,10 @@ public class GameState {
 		return pieces;
 	}
 
+	public void setPieces(Integer[][] pieces) {
+		this.pieces = pieces;
+	}
+
 	public Square[] getBoard() {
 		return board;
 	}
