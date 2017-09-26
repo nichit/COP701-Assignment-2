@@ -118,15 +118,27 @@ public class Ludo {
 			input = s.nextLine(); tokens = input.split(" ");
 			System.err.println("[input] " + input); System.err.flush();
 			if (!tokens[0].equals("REPEAT")) {
-				// Get move
-				input = s.nextLine(); tokens = input.split("<next>");
-				System.err.println("[input] " + input); System.err.flush();
-				for (int i=0; i<tokens.length; i++) {
-					if (!tokens[i].equals("NA")) {
-						gameState.updatePiece(1, new Move(tokens[i]));
-					}	
-				}
-				printPieces(gameState);
+				boolean oppoRepeat = false;
+				do {
+					if (oppoRepeat) {
+						// Get opponent dice
+						input = s.nextLine(); tokens = input.split(" ");
+						System.err.println("[input] " + input); System.err.flush();
+					}
+					oppoRepeat = false;
+					// Get move
+					input = s.nextLine(); tokens = input.split("<next>");
+					System.err.println("[input] " + input); System.err.flush();
+					for (int i=0; i<tokens.length; i++) {
+						if (!tokens[i].equals("NA") && !tokens[i].equals("REPEAT")) {
+							gameState.updatePiece(1, new Move(tokens[i]));
+						}
+						if (tokens[i].equals("REPEAT")) {
+							oppoRepeat = true;
+						}
+					}
+					printPieces(gameState);
+				} while (oppoRepeat);
 			}
 			
 		}
