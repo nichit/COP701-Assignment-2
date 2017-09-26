@@ -60,6 +60,7 @@ public class GameState {
 	
 
 	public void updatePiece(Integer player, Move move) {
+		boolean k = false;
 		//Update the state of two squares
 		if(move.getSteps() != 0) {
 			
@@ -79,9 +80,12 @@ public class GameState {
 				}
 			}
 			else {
-				if(nextSquareNo > 25 && nextSquareNo < 126) {
-					nextSquareNo = 100 + nextSquareNo;	
+				if(nextSquareNo > 51 && nextSquareNo < 127) {
+					nextSquareNo = nextSquareNo % 51;
+					k = true;
 				}
+				else if(nextSquareNo > 26 && k)
+					nextSquareNo = 100 + nextSquareNo;
 			}
 			
 			// We step on opponents piece! Yeah!
