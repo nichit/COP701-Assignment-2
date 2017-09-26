@@ -74,6 +74,7 @@ public class Ludo {
 					gameState.updatePiece(1, new Move(tokens[i]));
 				}	
 			}
+			printPieces(gameState);
 		}
 		
 		while (timeLimit > 0) {
@@ -111,6 +112,7 @@ public class Ludo {
 			
 			System.err.println("[bot] " + moveStr); System.err.flush();
 			System.out.println(moveStr); System.out.flush();
+			printPieces(gameState);
 			
 			// Get opponent dice / REPEAT
 			input = s.nextLine(); tokens = input.split(" ");
@@ -124,11 +126,22 @@ public class Ludo {
 						gameState.updatePiece(1, new Move(tokens[i]));
 					}	
 				}
+				printPieces(gameState);
 			}
 			
 		}
 		
 		s.close();
+	}
+	
+	public static void printPieces(GameState gameState) {
+		for (int i=0; i<2; i++) {
+			System.err.print("Player " + i + ": [ ");
+			for (int j=0; j<4; j++) {
+				System.err.print(gameState.getPieces()[i][j] + " ");
+			}
+			System.err.println("]"); System.err.flush();
+		}
 	}
 		
 	public static void manualMode() {

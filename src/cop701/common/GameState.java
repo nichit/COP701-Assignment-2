@@ -81,7 +81,7 @@ public class GameState {
 			}
 			else {
 				if(nextSquareNo > 51 && nextSquareNo < 127) {
-					nextSquareNo = nextSquareNo % 51;
+					nextSquareNo = nextSquareNo % 52;
 				}
 				else if(currentSquareNo <= 26 && nextSquareNo > 26)
 					nextSquareNo = 100 + nextSquareNo;
