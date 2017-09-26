@@ -3,8 +3,7 @@ package cop701.common;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Color;
-import java.awt.event.*;
-class GUI extends JFrame
+class LudoGUI extends JFrame
 {
 /**
 	 * 
@@ -23,7 +22,7 @@ static int y1[]={301,301,301,301,301,301,250,201,152,103,54,5,5,5,54,103,152,201
 		301,301,301,348,395,395,395,395,395,395,444,493,542,591,640,689,689,689,640,591,542,493,
 		444,395,395,395,395,395,395,348};
 static int y2[]={348,348,348,348,348,348,54,103,152,201,250,301,348,348,348,348,348,348,640,591,542,493,444,395};
-public GUI()
+public LudoGUI()
     {
     setTitle("Background Color for JFrame");
     setSize(800,800);
@@ -79,7 +78,7 @@ public GUI()
     	x[i+126]=x1[i+12];
     	y[i+126]=y1[i+12];
     }
-    for(int i=0;i<52;i++)
+    for(int i=0;i<6;i++)
     {
     	x[i+139]=x1[i+18];
     	y[i+139]=y1[i+18];
@@ -111,7 +110,7 @@ public GUI()
     public static void main(String args[])
     {
     	System.out.println(x.length+" "+y.length);
-	    GUI gui=new GUI();
+	    LudoGUI gui=new LudoGUI();
 	    gui.testState(R[3]);
     }
 } 
