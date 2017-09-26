@@ -47,7 +47,7 @@ public class Ludo {
 		
 		/**
 		 * Get dice:
-		 * e.g. PLAYER 0 ROLLED 0
+		 * e.g. PLAYER 0 ROLLED 3 SIXES, AND THUS A DUCK
 		 * 		PLAYER 0 ROLLED 4
 		 * 		PLAYER 0 ROLLED 6 2
 		 * 		PLAYER 0 ROLLED 6 6 5
@@ -56,7 +56,7 @@ public class Ludo {
 		 * 		R0_1<next>R3_4
 		 * 		NA
 		 * Get your dice:
-		 * e.g. YOU ROLLED 0
+		 * e.g. YOU ROLLED 3 SIXES, AND THUS A DUCK
 		 * 		YOU ROLLED 5
 		 * 		YOU ROLLED 6 2
 		 */
@@ -83,24 +83,36 @@ public class Ludo {
 			// Get your dice
 			input = s.nextLine(); tokens = input.split(" ");
 			System.err.println("[input] " + input); System.err.flush();
-			
-			List<Integer> diceSet = new ArrayList<Integer>();
-			for (int i=2; i<tokens.length; i++)
-				diceSet.add(Integer.valueOf(tokens[i]));
 
-			List<Move> moveList = ai.getMoveList(gameState, diceSet);
+			boolean duck = false;
+			for (int i=2; i<tokens.length; i++)
+				if (tokens[i].equals("DUCK")) {
+					duck = true;
+				}
 			
-			List<String> moveStrList = new ArrayList<String>();
-			for (Move move : moveList) {
-				gameState.updatePiece(0, move);
-				moveStrList.add(move.toString(playerColor));
+			String moveStr;
+			if (!duck) {
+				List<Integer> diceSet = new ArrayList<Integer>();
+				for (int i=2; i<tokens.length; i++)
+					diceSet.add(Integer.valueOf(tokens[i]));
+
+				List<Move> moveList = ai.getMoveList(gameState, diceSet);
+			
+				List<String> moveStrList = new ArrayList<String>();
+				for (Move move : moveList) {
+					gameState.updatePiece(0, move);
+					moveStrList.add(move.toString(playerColor));
+				}
+				moveStr = String.join("<next>", moveStrList);
 			}
-			String moveStr = String.join("<next>", moveStrList);
+			else {
+				moveStr = "NA";
+			}
 			
 			System.err.println("[bot] " + moveStr); System.err.flush();
 			System.out.println(moveStr); System.out.flush();
 			
-			// Get dice / REPEAT
+			// Get opponent dice / REPEAT
 			input = s.nextLine(); tokens = input.split(" ");
 			System.err.println("[input] " + input); System.err.flush();
 			if (!tokens[0].equals("REPEAT")) {
