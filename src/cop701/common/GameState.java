@@ -60,7 +60,6 @@ public class GameState {
 	
 
 	public void updatePiece(Integer player, Move move) {
-		boolean k = false;
 		//Update the state of two squares
 		if(move.getSteps() != 0) {
 			
@@ -71,7 +70,8 @@ public class GameState {
 				return;
 			}
 			
-			int nextSquareNo = pieces[player][move.getPieceId()] + move.getSteps();
+			int currentSquareNo = pieces[player][move.getPieceId()];
+			int nextSquareNo = currentSquareNo + move.getSteps();
 			
 			// Going into home column
 			if(player == 0) {
@@ -82,9 +82,8 @@ public class GameState {
 			else {
 				if(nextSquareNo > 51 && nextSquareNo < 127) {
 					nextSquareNo = nextSquareNo % 51;
-					k = true;
 				}
-				else if(nextSquareNo > 26 && k)
+				else if(currentSquareNo <= 26 && nextSquareNo > 26)
 					nextSquareNo = 100 + nextSquareNo;
 			}
 			
