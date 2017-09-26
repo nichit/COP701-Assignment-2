@@ -16,7 +16,7 @@ public class GameStateTest {
 		for (int i=0; i<sq.length; i++) {
 			if (sq[i].getIsStar()) countStar++;
 		}
-		assertEquals(28, countStar);
+		assertEquals(32, countStar);
 	}
 
 	@Test
@@ -123,6 +123,8 @@ public class GameStateTest {
 		assertTrue(gameState.validateMove(0, new Move(1,6)));
 		gameState.updatePiece(0, new Move(1,6));
 		assertFalse(gameState.validateMove(0, new Move(1,1)));
+		
+		assertTrue(gameState.validateMove(0, new Move(0,1)));		
 	}
 	
 }

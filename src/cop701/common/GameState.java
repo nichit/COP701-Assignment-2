@@ -46,7 +46,7 @@ public class GameState {
 		
 		//Walk Of Fame Steps
 		for(i=0;i<=3;i++) {
-			for(j=0;j<=4;++j) {
+			for(j=0;j<=5;++j) {
 				board[113+13*i+j].setIsStar(true);
 			}
 		}
@@ -83,7 +83,7 @@ public class GameState {
 				if(nextSquareNo > 51 && nextSquareNo < 127) {
 					nextSquareNo = nextSquareNo % 52;
 				}
-				else if(currentSquareNo <= 26 && nextSquareNo > 26)
+				else if(currentSquareNo <= 25 && nextSquareNo > 25)
 					nextSquareNo = 100 + nextSquareNo;
 			}
 			
@@ -140,6 +140,10 @@ public class GameState {
 	
 	public Integer[][] getPieces() {
 		return pieces;
+	}
+
+	public void setPieces(Integer[][] pieces) {
+		this.pieces = pieces;
 	}
 
 	public Square[] getBoard() {
