@@ -35,4 +35,9 @@ public class Move {
 		if (steps == 0) return "NA";
 		return color.name() + String.valueOf(pieceId) + "_" + String.valueOf(steps);
 	}
+	
+	public Move copy() {
+		Move m = new Move(this.pieceId,this.steps);
+		return m;
+	}
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import cop701.bot.AI;
+import cop701.bot.KillerAI;
 import cop701.bot.RandomAI;
 import cop701.common.Color;
 import cop701.common.GameState;
@@ -43,7 +44,7 @@ public class Ludo {
 		Color playerColor = colorMap.get(0);
 		
 		GameState gameState = new GameState(colorMap);
-		AI ai = new RandomAI();
+		AI ai = new KillerAI();
 		
 		/**
 		 * Get dice:
