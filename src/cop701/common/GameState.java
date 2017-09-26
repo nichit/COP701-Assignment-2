@@ -20,23 +20,42 @@ public class GameState {
 	
 	private Square board[] = new Square[200];
 	
-	public GameState() {
+	public GameState(Map<Integer,Color> colorMap) {
+		this.colorMap = colorMap;
 		initGameBoard();
+		initPlayer();
 	}
 
+	public GameState(GameState obj) {
+		for (int i=0; i<2; i++)
+			for (int j=0; j<4; j++)
+				this.pieces[i][j] = obj.pieces[i][j];
+		for (int i=0; i<200; i++)
+			this.board[i] = obj.board[i].copy();
+	}
+	
 	private void initGameBoard() {
 		int i,j;
+		for (i=0; i<200; i++)
+			board[i] = new Square();
+		
 		for(i=0;i<=51;++i) {
 			if(i%13==1 || i%13==9)
-				board[i].setIsStar(true); 
+				board[i].setIsStar(true);
 		}
 		
 		//Walk Of Fame Steps
 		for(i=0;i<=3;i++) {
-			for(j=0;j<=4;++j) {
+			for(j=0;j<=5;++j) {
 				board[113+13*i+j].setIsStar(true);
 			}
 		}
+	}
+	
+	private void initPlayer() {
+		for (int i=0; i<2; i++)
+			for (int j=0; j<4; j++)
+				pieces[i][j] = -1;
 	}
 	
 
@@ -44,26 +63,42 @@ public class GameState {
 		//Update the state of two squares
 		if(move.getSteps() != 0) {
 			
+			// Starting a piece
 			if(pieces[player][move.getPieceId()] == -1) {
 				pieces[player][move.getPieceId()] = player*26 + 1;
-				board[player*26 + 1].getNoOfPieces()[player]++;
+				board[player*26 + 1].addPieces(player, 1);
+				return;
 			}
 			
-			int nextSquareNo = pieces[player][move.getPieceId()] + move.getSteps();
+			int currentSquareNo = pieces[player][move.getPieceId()];
+			int nextSquareNo = currentSquareNo + move.getSteps();
 			
+			// Going into home column
 			if(player == 0) {
 				if(nextSquareNo > 51 && nextSquareNo < 152) {
 					nextSquareNo = 100 + nextSquareNo;	
 				}
 			}
 			else {
-				if(nextSquareNo > 25 && nextSquareNo < 126) {
-					nextSquareNo = 100 + nextSquareNo;	
+				if(nextSquareNo > 51 && nextSquareNo < 127) {
+					nextSquareNo = nextSquareNo % 52;
 				}
+				else if(currentSquareNo <= 25 && nextSquareNo > 25)
+					nextSquareNo = 100 + nextSquareNo;
 			}
 			
-			board[pieces[player][move.getPieceId()]].getNoOfPieces()[player]--;
-			board[nextSquareNo].getNoOfPieces()[player]++;
+			// We step on opponents piece! Yeah!
+			if (!board[nextSquareNo].getIsStar() && board[nextSquareNo].getNoOfPieces()[1-player] > 0) {
+				board[nextSquareNo].updatePieces(1-player, 0);
+				for (int i=0; i<4; i++)
+					if (pieces[1-player][i] == nextSquareNo) {
+						pieces[1-player][i] = -1;
+					}
+			}
+			
+			// Now we move our piece
+			board[pieces[player][move.getPieceId()]].updatePieces(player, -1);
+			board[nextSquareNo].updatePieces(player, 1);
 			pieces[player][move.getPieceId()] = nextSquareNo;
 		}
 	}
@@ -72,8 +107,8 @@ public class GameState {
 		if(move.getSteps() == 0)
 			return true;
 		if(pieces[player][move.getPieceId()] == -1)
-			if(move.getSteps() != 1)	return false;
-			else					return true;
+			if(move.getSteps() == 1 || move.getSteps() == 6)	return true;
+			else	return false;
 		
 		int nextSquareNo = pieces[player][move.getPieceId()] + move.getSteps();
 		
@@ -97,6 +132,10 @@ public class GameState {
 				 
 		return true;
 
+	}
+	
+	public Map<Integer, Color> getColorMap() {
+		return colorMap;
 	}
 	
 	public Integer[][] getPieces() {

@@ -1,7 +1,9 @@
 package cop701.main;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import cop701.bot.AI;
@@ -12,6 +14,11 @@ import cop701.common.Move;
 
 public class Ludo {
 
+	
+	/**
+	 * We assume we are always player 0, because 0 is a lucky number :)
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		//manualMode();
 		
@@ -21,25 +28,26 @@ public class Ludo {
 		
 		// Init game state
 		input = s.nextLine(); tokens = input.split(" ");
+		System.err.println("[input] " + input); System.err.flush();
 		int pid = Integer.valueOf(tokens[0]);
 		pid--;
 		int timeLimit = Integer.valueOf(tokens[1]); // in seconds
 		int gameMode = Integer.valueOf(tokens[2]);
-		Color playerColor = null;
-		Color opponentColor = null;
+		Map<Integer, Color> colorMap = new HashMap<Integer, Color>();
 		for (Color c : Color.values()) {
-			if (c.ordinal() == gameMode * 2 + pid)
-				playerColor = c;
-			if (c.ordinal() == gameMode * 2 + 1-pid)
-				opponentColor = c;
+			if (c.ordinal() == gameMode + pid * 2)
+				colorMap.put(0, c);
+			if (c.ordinal() == gameMode + (1-pid) * 2)
+				colorMap.put(1, c);
 		}
+		Color playerColor = colorMap.get(0);
 		
-		GameState gameState = new GameState();
+		GameState gameState = new GameState(colorMap);
 		AI ai = new RandomAI();
 		
 		/**
 		 * Get dice:
-		 * e.g. PLAYER 0 ROLLED 0
+		 * e.g. PLAYER 0 ROLLED 3 SIXES, AND THUS A DUCK
 		 * 		PLAYER 0 ROLLED 4
 		 * 		PLAYER 0 ROLLED 6 2
 		 * 		PLAYER 0 ROLLED 6 6 5
@@ -48,7 +56,7 @@ public class Ludo {
 		 * 		R0_1<next>R3_4
 		 * 		NA
 		 * Get your dice:
-		 * e.g. YOU ROLLED 0
+		 * e.g. YOU ROLLED 3 SIXES, AND THUS A DUCK
 		 * 		YOU ROLLED 5
 		 * 		YOU ROLLED 6 2
 		 */
@@ -56,47 +64,95 @@ public class Ludo {
 		if (pid == 1) { // 2nd player initialization
 			// Get dice
 			input = s.nextLine(); tokens = input.split(" ");
+			System.err.println("[input] " + input); System.err.flush();
 			// Get move
 			input = s.nextLine(); tokens = input.split("<next>");
+			System.err.println("[input] " + input); System.err.flush();
+			
 			for (int i=0; i<tokens.length; i++) {
 				if (!tokens[i].equals("NA")) {
-					gameState.updatePiece(1-pid, new Move(tokens[i]));
+					gameState.updatePiece(1, new Move(tokens[i]));
 				}	
 			}
+			printPieces(gameState);
 		}
 		
-		while (true) {			
+		while (timeLimit > 0) {
+			System.err.println("[bot] <THROW>"); System.err.flush();
 			System.out.println("<THROW>"); System.out.flush();
 			
 			// Get your dice
 			input = s.nextLine(); tokens = input.split(" ");
-			List<Integer> diceSet = new ArrayList<Integer>();
-			for (int i=2; i<tokens.length; i++)
-				diceSet.add(Integer.valueOf(tokens[i]));
+			System.err.println("[input] " + input); System.err.flush();
 
-			List<Move> moveList = ai.getMoveList(gameState, diceSet);
-			
-			List<String> moveStrList = new ArrayList<String>();
-			for (Move move : moveList) {
-				gameState.updatePiece(pid, move);
-				moveStrList.add(move.toString(playerColor));
-			}
-			String moveStr = String.join("<next>", moveStrList);
-			
-			System.out.println(moveStr); System.out.flush();
-			
-			// Get dice / REPEAT
-			input = s.nextLine(); tokens = input.split(" ");
-			if (!tokens[0].equals("REPEAT")) {
-				// Get move
-				input = s.nextLine(); tokens = input.split("<next>");
-				for (int i=0; i<tokens.length; i++) {
-					if (!tokens[i].equals("NA")) {
-						gameState.updatePiece(1-pid, new Move(tokens[i]));
-					}	
+			boolean duck = false;
+			for (int i=2; i<tokens.length; i++)
+				if (tokens[i].equals("DUCK")) {
+					duck = true;
 				}
+			
+			String moveStr;
+			if (!duck) {
+				List<Integer> diceSet = new ArrayList<Integer>();
+				for (int i=2; i<tokens.length; i++)
+					diceSet.add(Integer.valueOf(tokens[i]));
+
+				List<Move> moveList = ai.getMoveList(gameState, diceSet);
+			
+				List<String> moveStrList = new ArrayList<String>();
+				for (Move move : moveList) {
+					gameState.updatePiece(0, move);
+					moveStrList.add(move.toString(playerColor));
+				}
+				moveStr = String.join("<next>", moveStrList);
+			}
+			else {
+				moveStr = "NA";
 			}
 			
+			System.err.println("[bot] " + moveStr); System.err.flush();
+			System.out.println(moveStr); System.out.flush();
+			printPieces(gameState);
+			
+			// Get opponent dice / REPEAT
+			input = s.nextLine(); tokens = input.split(" ");
+			System.err.println("[input] " + input); System.err.flush();
+			if (!tokens[0].equals("REPEAT")) {
+				boolean oppoRepeat = false;
+				do {
+					if (oppoRepeat) {
+						// Get opponent dice
+						input = s.nextLine(); tokens = input.split(" ");
+						System.err.println("[input] " + input); System.err.flush();
+					}
+					oppoRepeat = false;
+					// Get move
+					input = s.nextLine(); tokens = input.split("<next>");
+					System.err.println("[input] " + input); System.err.flush();
+					for (int i=0; i<tokens.length; i++) {
+						if (!tokens[i].equals("NA") && !tokens[i].equals("REPEAT")) {
+							gameState.updatePiece(1, new Move(tokens[i]));
+						}
+						if (tokens[i].equals("REPEAT")) {
+							oppoRepeat = true;
+						}
+					}
+					printPieces(gameState);
+				} while (oppoRepeat);
+			}
+			
+		}
+		
+		s.close();
+	}
+	
+	public static void printPieces(GameState gameState) {
+		for (int i=0; i<2; i++) {
+			System.err.print("Player " + i + ": [ ");
+			for (int j=0; j<4; j++) {
+				System.err.print(gameState.getPieces()[i][j] + " ");
+			}
+			System.err.println("]"); System.err.flush();
 		}
 	}
 		
