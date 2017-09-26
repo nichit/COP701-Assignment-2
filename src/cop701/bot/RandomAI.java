@@ -28,10 +28,8 @@ public class RandomAI implements AI {
 				}
 			}
 		}
-		if(moves.size() != diceThrow.size()) {
-			moves.clear();
+		if(moves.size() == 0)
 			moves.add(new Move(0,0));
-		}
 		
 		return moves;
 	}
