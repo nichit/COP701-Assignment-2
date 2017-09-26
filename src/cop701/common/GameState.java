@@ -46,7 +46,7 @@ public class GameState {
 		
 		//Walk Of Fame Steps
 		for(i=0;i<=3;i++) {
-			for(j=0;j<=4;++j) {
+			for(j=0;j<=5;++j) {
 				board[113+13*i+j].setIsStar(true);
 			}
 		}
