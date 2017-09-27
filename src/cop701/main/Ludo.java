@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import cop701.bot.AI;
 import cop701.bot.HunterAI;
+import cop701.bot.RandomAI;
 import cop701.common.Color;
 import cop701.common.GameState;
 import cop701.common.Move;
@@ -21,8 +22,16 @@ public class Ludo {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		AI ai = new HunterAI(); // Default AI
 		for (int i=0; i<args.length; i++) {
 			if (args[i].equals("--manual")) manualMode = true;
+			if (args[i].equals("--ai")) {
+				if (i+1 < args.length && args[i+1].equals("random"))
+					ai = new RandomAI();
+				else if (i+1 < args.length && args[i+1].equals("hunter"))
+					ai = new HunterAI();
+				i++;
+			}
 		}
 		
 		Scanner s = new Scanner(System.in);
@@ -46,7 +55,6 @@ public class Ludo {
 		Color playerColor = colorMap.get(0);
 		
 		GameState gameState = new GameState(colorMap);
-		AI ai = new HunterAI();
 		if (manualMode) {
 			new LudoSimpleInteractiveUI(gameState);
 		}
