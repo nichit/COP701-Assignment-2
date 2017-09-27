@@ -3,12 +3,11 @@ package cop701.bot;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 import cop701.common.GameState;
 import cop701.common.Move;
 
-public class KillerAI implements AI {
+public class HunterAI extends AbstractAI {
 
 	@Override
 	public List<Move> getMoveList(GameState gameState, List<Integer> diceThrow) {
@@ -24,6 +23,7 @@ public class KillerAI implements AI {
 		
 		if(max.moves.size() == 0)
 			max.moves.add(new Move(0,0));
+		System.err.println("Score: " + max.val);
 		
 		return max.moves;
 	}
@@ -56,10 +56,47 @@ public class KillerAI implements AI {
 		}
 	}
 
-	private int calculateScore(GameState gameState, int extraRoll) {
-		Random rand = new Random();
-		int n = rand.nextInt(50);
-		return n;
+	@Override
+	protected int calculateScore(GameState gameState, int extraRoll) {
+		int score = 0;
+
+		//for extra roll we get
+		while(extraRoll-- != 0)
+			score += 20;
+		
+		Integer pieces [] [] = gameState.getPieces();
+		
+		//our pieces evaluation
+		for(int j=0; j<4; ++j) {
+			//our piece at star
+			if(pieces[0][j] != -1 && gameState.getBoard()[pieces[0][j]].getIsStar())
+				score += 30;
+			//our piece is on run
+			if(pieces[0][j] != -1) {
+				score += 60;
+				for(int k=0; k<4; ++k) {
+					int distance = calculateDistance(pieces[0][j],pieces[1][k]);
+					//opponent piece behind our piece
+					if(distance > 0 && distance <= 6)
+						//score - 40 + steps required to reach goal
+						score += -40 + (57 - pieces[0][j]); 
+				
+					//opponent piece ahead of our piece (capture time)
+					if(distance >= -6 && distance < 0)
+						if(gameState.getBoard()[pieces[1][k]].getIsStar())
+							score += 10;
+						else
+							score += 40;
+				}
+			}	
+		}
+		
+		for(int k=0; k<4; ++k)
+			if(pieces[1][k] == -1)
+				score += 1000;
+		
+		
+		return score;
 	}
 
 }
