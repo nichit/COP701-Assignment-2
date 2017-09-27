@@ -84,7 +84,8 @@ public class GameStateTest {
 		}
 		assertTrue(gameState.validateMove(0, new Move(0,1)));
 		
-		gameState.updatePiece(0, new Move(0,1));
+		int roll = gameState.updatePiece(0, new Move(0,1));
+		assertEquals(1,roll);
 		assertEquals(34, (int)gameState.getPieces()[0][0]);
 		assertEquals(-1, (int)gameState.getPieces()[1][0]);
 		assertEquals(1, gameState.getBoard()[34].getNoOfPieces()[0]);
@@ -103,7 +104,8 @@ public class GameStateTest {
 			gameState.updatePiece(1, new Move(0,1));			
 		}
 		
-		gameState.updatePiece(1, new Move(0,1));
+		int roll = gameState.updatePiece(1, new Move(0,1));
+		assertEquals(1,roll);
 		assertEquals(8, (int)gameState.getPieces()[1][0]);
 		assertEquals(-1, (int)gameState.getPieces()[0][0]);
 		assertEquals(1, gameState.getBoard()[8].getNoOfPieces()[1]);
@@ -121,7 +123,8 @@ public class GameStateTest {
 		for (int i=0; i<51; i++)
 			gameState.updatePiece(0, new Move(1,1));
 		assertTrue(gameState.validateMove(0, new Move(1,6)));
-		gameState.updatePiece(0, new Move(1,6));
+		int roll = gameState.updatePiece(0, new Move(1,6));
+		assertEquals(1,roll);
 		assertFalse(gameState.validateMove(0, new Move(1,1)));
 		
 		assertTrue(gameState.validateMove(0, new Move(0,1)));		

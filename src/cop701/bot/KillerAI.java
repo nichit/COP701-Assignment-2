@@ -17,7 +17,7 @@ public class KillerAI implements AI {
 		
 		int n = diceThrow.size();
 		for(int i=0;i<n;++i) {
-			findOptimalMoves(0,diceThrow,gameState,moves,max);
+			findOptimalMoves(0,diceThrow,gameState,moves,max,0);
 			Collections.swap(diceThrow,0,n-i-1);
 		}
 		
@@ -29,9 +29,9 @@ public class KillerAI implements AI {
 	}
 
 
-	private void findOptimalMoves(int i, List<Integer> diceThrow, GameState gameState, List<Move> moves, Wrapper max) {
+	private void findOptimalMoves(int i, List<Integer> diceThrow, GameState gameState, List<Move> moves, Wrapper max, int rolls) {
 		
-		int val = calculateScore(moves);
+		int val = calculateScore(gameState,rolls);
 		if(moves.size() > max.moves.size() || (val > max.val && moves.size() == max.moves.size())) {
 			max.val = val;
 			max.moves.clear();
@@ -48,15 +48,15 @@ public class KillerAI implements AI {
 			boolean isValid = gameState.validateMove(0,move);
 			if(isValid) {
 				GameState dummyGameState = new GameState(gameState);
-				dummyGameState.updatePiece(0,move);
+				int extraRolls = dummyGameState.updatePiece(0,move);
 				moves.add(move);
-				findOptimalMoves(i+1,diceThrow,dummyGameState,moves,max);
+				findOptimalMoves(i+1,diceThrow,dummyGameState,moves,max,rolls + extraRolls);
 				moves.remove(i);
 			}
 		}
 	}
 
-	private int calculateScore(List<Move> moves) {
+	private int calculateScore(GameState gameState, int extraRoll) {
 		Random rand = new Random();
 		int n = rand.nextInt(50);
 		return n;
