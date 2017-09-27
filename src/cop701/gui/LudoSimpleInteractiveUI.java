@@ -1,4 +1,4 @@
-package cop701.main;
+package cop701.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
+
+import cop701.main.Ludo;
 
 public class LudoSimpleInteractiveUI {
 

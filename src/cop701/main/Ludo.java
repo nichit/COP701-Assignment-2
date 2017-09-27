@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 import cop701.bot.AI;
 import cop701.bot.KillerAI;
-import cop701.bot.RandomAI;
 import cop701.common.Color;
 import cop701.common.GameState;
 import cop701.common.Move;
+import cop701.gui.LudoSimpleInteractiveUI;
 
 public class Ludo {
 
