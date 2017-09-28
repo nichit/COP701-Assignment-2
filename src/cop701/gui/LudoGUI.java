@@ -6,7 +6,7 @@ import cop701.common.GameState;
 
 import java.awt.*;
 import java.awt.Color;
-class LudoGUI extends JFrame
+public class LudoGUI extends JFrame
 {
 /**
 	 * 

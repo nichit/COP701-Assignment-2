@@ -12,6 +12,7 @@ import cop701.bot.RandomAI;
 import cop701.common.Color;
 import cop701.common.GameState;
 import cop701.common.Move;
+import cop701.gui.LudoGUI;
 import cop701.gui.LudoSimpleInteractiveUI;
 
 public class Ludo {
@@ -45,6 +46,7 @@ public class Ludo {
 		pid--;
 		int timeLimit = Integer.valueOf(tokens[1]); // in seconds
 		int gameMode = Integer.valueOf(tokens[2]);
+		int showGUI = Integer.valueOf(tokens[3]);
 		Map<Integer, Color> colorMap = new HashMap<Integer, Color>();
 		for (Color c : Color.values()) {
 			if (c.ordinal() == gameMode + pid * 2)
@@ -55,6 +57,10 @@ public class Ludo {
 		Color playerColor = colorMap.get(0);
 		
 		GameState gameState = new GameState(colorMap);
+		if (showGUI == 1) {
+			LudoGUI gui = new LudoGUI();
+			gui.changeState(gameState);
+		}
 		if (manualMode) {
 			new LudoSimpleInteractiveUI(gameState);
 		}
