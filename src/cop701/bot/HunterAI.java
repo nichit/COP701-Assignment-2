@@ -61,8 +61,10 @@ public class HunterAI extends AbstractAI {
 		int score = 0;
 
 		//for extra roll we get
-		while(extraRoll-- != 0)
+		while(extraRoll > 0) {
 			score += 20;
+			extraRoll = 0;
+		}
 		
 		Integer pieces [] [] = gameState.getPieces();
 		
@@ -78,6 +80,10 @@ public class HunterAI extends AbstractAI {
 					int distance = calculateDistance(pieces[0][j],pieces[1][k]);
 					//opponent piece behind our piece
 					if(distance > 0 && distance <= 6)
+						if(gameState.getBoard()[pieces[0][j]].getIsStar())
+							//Move the one which is in the starting phase
+							score += (57 - pieces[0][j]);
+						else
 						//score - 40 + steps required to reach goal
 						score += -40 + (57 - pieces[0][j]); 
 				
@@ -86,7 +92,7 @@ public class HunterAI extends AbstractAI {
 						if(gameState.getBoard()[pieces[1][k]].getIsStar())
 							score += 10;
 						else
-							score += 40;
+							score += 40 + (57 - pieces[0][j]);
 				}
 			}	
 		}
