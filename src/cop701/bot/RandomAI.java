@@ -8,7 +8,7 @@ import java.util.List;
 import cop701.common.GameState;
 import cop701.common.Move;
 
-public class RandomAI implements AI {
+public class RandomAI extends AbstractAI {
 
 	@Override
 	public List<Move> getMoveList(GameState gameState, List<Integer> diceThrow) {

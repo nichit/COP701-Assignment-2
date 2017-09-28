@@ -7,20 +7,32 @@ import java.util.Map;
 import java.util.Scanner;
 
 import cop701.bot.AI;
+import cop701.bot.HunterAI;
 import cop701.bot.RandomAI;
 import cop701.common.Color;
 import cop701.common.GameState;
 import cop701.common.Move;
+import cop701.gui.LudoSimpleInteractiveUI;
 
 public class Ludo {
 
-	
+	private static boolean manualMode = false;
 	/**
 	 * We assume we are always player 0, because 0 is a lucky number :)
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//manualMode();
+		AI ai = new HunterAI(); // Default AI
+		for (int i=0; i<args.length; i++) {
+			if (args[i].equals("--manual")) manualMode = true;
+			if (args[i].equals("--ai")) {
+				if (i+1 < args.length && args[i+1].equals("random"))
+					ai = new RandomAI();
+				else if (i+1 < args.length && args[i+1].equals("hunter"))
+					ai = new HunterAI();
+				i++;
+			}
+		}
 		
 		Scanner s = new Scanner(System.in);
 		String input;
@@ -43,7 +55,9 @@ public class Ludo {
 		Color playerColor = colorMap.get(0);
 		
 		GameState gameState = new GameState(colorMap);
-		AI ai = new RandomAI();
+		if (manualMode) {
+			new LudoSimpleInteractiveUI(gameState);
+		}
 		
 		/**
 		 * Get dice:
@@ -85,34 +99,36 @@ public class Ludo {
 			input = s.nextLine(); tokens = input.split(" ");
 			System.err.println("[input] " + input); System.err.flush();
 
-			boolean duck = false;
-			for (int i=2; i<tokens.length; i++)
-				if (tokens[i].equals("DUCK")) {
-					duck = true;
-				}
-			
-			String moveStr;
-			if (!duck) {
-				List<Integer> diceSet = new ArrayList<Integer>();
+			if (!manualMode) {
+				boolean duck = false;
 				for (int i=2; i<tokens.length; i++)
-					diceSet.add(Integer.valueOf(tokens[i]));
-
-				List<Move> moveList = ai.getMoveList(gameState, diceSet);
-			
-				List<String> moveStrList = new ArrayList<String>();
-				for (Move move : moveList) {
-					gameState.updatePiece(0, move);
-					moveStrList.add(move.toString(playerColor));
+					if (tokens[i].equals("DUCK")) {
+						duck = true;
+					}
+				
+				String moveStr;
+				if (!duck) {
+					List<Integer> diceSet = new ArrayList<Integer>();
+					for (int i=2; i<tokens.length; i++)
+						diceSet.add(Integer.valueOf(tokens[i]));
+	
+					List<Move> moveList = ai.getMoveList(gameState, diceSet);
+				
+					List<String> moveStrList = new ArrayList<String>();
+					for (Move move : moveList) {
+						gameState.updatePiece(0, move);
+						moveStrList.add(move.toString(playerColor));
+					}
+					moveStr = String.join("<next>", moveStrList);
 				}
-				moveStr = String.join("<next>", moveStrList);
+				else {
+					moveStr = "NA";
+				}
+				
+				System.err.println("[bot] " + moveStr); System.err.flush();
+				System.out.println(moveStr); System.out.flush();
+				printPieces(gameState);
 			}
-			else {
-				moveStr = "NA";
-			}
-			
-			System.err.println("[bot] " + moveStr); System.err.flush();
-			System.out.println(moveStr); System.out.flush();
-			printPieces(gameState);
 			
 			// Get opponent dice / REPEAT
 			input = s.nextLine(); tokens = input.split(" ");
@@ -157,17 +173,26 @@ public class Ludo {
 	}
 		
 	public static void manualMode() {
-		new LudoSimpleInteractiveUI();
+		new LudoSimpleInteractiveUI(null);
 		Scanner s = new Scanner(System.in);
 		while (s.hasNextLine()) {
 			String str = s.nextLine();
-			System.err.println("[bot] " + str);
+			System.err.println("[input] " + str);
 		}
 		s.close();
 	}
 	
-	public static void submitText(String input) {
-		System.err.println("[input] " + input);
+	public static void submitText(GameState gameState, String input) {
+		String[] tokens = input.split("<next>");
+		
+		for (int i=0; i<tokens.length; i++) {
+			if (!tokens[i].equals("NA")) {
+				gameState.updatePiece(0, new Move(tokens[i]));
+			}	
+		}
+		printPieces(gameState);
+		
+		System.err.println("[bot] " + input);
 		System.out.println(input);
 		System.out.flush();
 	}

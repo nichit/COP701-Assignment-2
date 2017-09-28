@@ -1,6 +1,9 @@
-package cop701.common;
+package cop701.gui;
 
 import javax.swing.*;
+
+import cop701.common.GameState;
+
 import java.awt.*;
 import java.awt.Color;
 class LudoGUI extends JFrame

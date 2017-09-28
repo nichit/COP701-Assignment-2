@@ -59,15 +59,16 @@ public class GameState {
 	}
 	
 
-	public void updatePiece(Integer player, Move move) {
+	public int updatePiece(Integer player, Move move) {
 		//Update the state of two squares
+		int extraRoll = 0;
 		if(move.getSteps() != 0) {
 			
 			// Starting a piece
 			if(pieces[player][move.getPieceId()] == -1) {
 				pieces[player][move.getPieceId()] = player*26 + 1;
 				board[player*26 + 1].addPieces(player, 1);
-				return;
+				return 0;
 			}
 			
 			int currentSquareNo = pieces[player][move.getPieceId()];
@@ -80,12 +81,15 @@ public class GameState {
 				}
 			}
 			else {
-				if(nextSquareNo > 51 && nextSquareNo < 127) {
+				if(nextSquareNo > 51 && nextSquareNo < 126) {
 					nextSquareNo = nextSquareNo % 52;
 				}
 				else if(currentSquareNo <= 25 && nextSquareNo > 25)
 					nextSquareNo = 100 + nextSquareNo;
 			}
+			
+			if(nextSquareNo == 157 || nextSquareNo == 131)
+				extraRoll++;
 			
 			// We step on opponents piece! Yeah!
 			if (!board[nextSquareNo].getIsStar() && board[nextSquareNo].getNoOfPieces()[1-player] > 0) {
@@ -94,6 +98,7 @@ public class GameState {
 					if (pieces[1-player][i] == nextSquareNo) {
 						pieces[1-player][i] = -1;
 					}
+				extraRoll++;
 			}
 			
 			// Now we move our piece
@@ -101,6 +106,8 @@ public class GameState {
 			board[nextSquareNo].updatePieces(player, 1);
 			pieces[player][move.getPieceId()] = nextSquareNo;
 		}
+		
+		return extraRoll;
 	}
 	
 	public boolean validateMove(Integer player, Move move) {
