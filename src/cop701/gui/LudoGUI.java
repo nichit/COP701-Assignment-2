@@ -33,7 +33,7 @@ public LudoGUI()
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setVisible(true);
     setLayout(new BorderLayout());
-    JLabel background=new JLabel(new ImageIcon("C:\\Users\\Admin\\Documents\\GitHub\\COP701-Assignment-2\\src\\cop701\\common\\board.jpg"));
+    JLabel background=new JLabel(new ImageIcon(this.getClass().getResource("/resources/board.jpg")));
     add(background);
     background.setVisible(true);
     R[0].setBounds(100,100,40,40);
