@@ -18,6 +18,8 @@ import cop701.gui.LudoSimpleInteractiveUI;
 public class Ludo {
 
 	private static boolean manualMode = false;
+	private static LudoGUI gui;
+	private static int showGUI = 0;
 	/**
 	 * We assume we are always player 0, because 0 is a lucky number :)
 	 * @param args
@@ -46,7 +48,7 @@ public class Ludo {
 		pid--;
 		int timeLimit = Integer.valueOf(tokens[1]); // in seconds
 		int gameMode = Integer.valueOf(tokens[2]);
-		int showGUI = Integer.valueOf(tokens[3]);
+		showGUI = Integer.valueOf(tokens[3]);
 		Map<Integer, Color> colorMap = new HashMap<Integer, Color>();
 		for (Color c : Color.values()) {
 			if (c.ordinal() == gameMode + pid * 2)
@@ -58,7 +60,7 @@ public class Ludo {
 		
 		GameState gameState = new GameState(colorMap);
 		if (showGUI == 1) {
-			LudoGUI gui = new LudoGUI();
+			gui = new LudoGUI();
 			gui.changeState(gameState);
 		}
 		if (manualMode) {
@@ -95,6 +97,7 @@ public class Ludo {
 				}	
 			}
 			printPieces(gameState);
+			if (showGUI == 1) gui.changeState(gameState);
 		}
 		
 		while (timeLimit > 0) {
@@ -134,6 +137,7 @@ public class Ludo {
 				System.err.println("[bot] " + moveStr); System.err.flush();
 				System.out.println(moveStr); System.out.flush();
 				printPieces(gameState);
+				if (showGUI == 1) gui.changeState(gameState);
 			}
 			
 			// Get opponent dice / REPEAT
@@ -160,6 +164,7 @@ public class Ludo {
 						}
 					}
 					printPieces(gameState);
+					if (showGUI == 1) gui.changeState(gameState);
 				} while (oppoRepeat);
 			}
 			
@@ -197,6 +202,7 @@ public class Ludo {
 			}	
 		}
 		printPieces(gameState);
+		if (showGUI == 1) gui.changeState(gameState);
 		
 		System.err.println("[bot] " + input);
 		System.out.println(input);

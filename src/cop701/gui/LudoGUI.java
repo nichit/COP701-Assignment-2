@@ -25,6 +25,10 @@ static int y1[]={301,301,301,301,301,301,250,201,152,103,54,5,5,5,54,103,152,201
 		301,301,301,348,395,395,395,395,395,395,444,493,542,591,640,689,689,689,640,591,542,493,
 		444,395,395,395,395,395,395,348};
 static int y2[]={348,348,348,348,348,348,54,103,152,201,250,301,348,348,348,348,348,348,640,591,542,493,444,395};
+static int homerx[]={100,160,100,160};
+static int homery[]={100,100,160,160};
+static int homeyx[]={550,610,550,610};
+static int homeyy[]={550,550,610,610};
 public LudoGUI()
     {
     setTitle("Background Color for JFrame");
@@ -106,8 +110,30 @@ public LudoGUI()
     {
     	for(int i=0;i<4;i++)
     	{
-    		R[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]],40,40);
-    		Y[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],40,40);
+			if(gs.getPieces()[0][i]==-1)
+			{
+				R[i].setBounds(homerx[i],homery[i],40,40);
+			}
+			else if(gs.getPieces()[0][i]==157)
+			{
+				R[i].setBounds(x2[5],y2[5],40,40);
+			}
+			else
+			{
+				R[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]],40,40);
+			}
+			if(gs.getPieces()[1][i]==-1)
+			{
+				Y[i].setBounds(homeyx[i],homeyy[i],40,40);
+			}
+			else if(gs.getPieces()[1][i]==131)
+			{
+				Y[i].setBounds(x2[17],y2[17],40,40);
+			}
+			else
+			{
+				Y[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],40,40);
+			}
     	}
     }
     public static void main(String args[])
