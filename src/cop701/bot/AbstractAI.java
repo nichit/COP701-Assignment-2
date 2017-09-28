@@ -4,7 +4,7 @@ import cop701.common.GameState;
 
 public abstract class AbstractAI implements AI {
 	
-	protected int calculateScore(GameState gameState, int extraRoll) {
+	protected double calculateScore(GameState gameState, int extraRoll) {
 		return 0;
 	}
 	

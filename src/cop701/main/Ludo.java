@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import cop701.bot.AI;
 import cop701.bot.HunterAI;
+import cop701.bot.NewAI;
 import cop701.bot.RandomAI;
 import cop701.common.Color;
 import cop701.common.GameState;
@@ -25,7 +26,7 @@ public class Ludo {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		AI ai = new HunterAI(); // Default AI
+		AI ai = new NewAI(); // Default AI
 		for (int i=0; i<args.length; i++) {
 			if (args[i].equals("--manual")) manualMode = true;
 			if (args[i].equals("--ai")) {
@@ -33,6 +34,8 @@ public class Ludo {
 					ai = new RandomAI();
 				else if (i+1 < args.length && args[i+1].equals("hunter"))
 					ai = new HunterAI();
+				else if (i+1 < args.length && args[i+1].equals("new"))
+					ai = new NewAI();
 				i++;
 			}
 		}
@@ -48,7 +51,7 @@ public class Ludo {
 		pid--;
 		int timeLimit = Integer.valueOf(tokens[1]); // in seconds
 		int gameMode = Integer.valueOf(tokens[2]);
-		showGUI = Integer.valueOf(tokens[3]);
+		//showGUI = Integer.valueOf(tokens[3]);
 		Map<Integer, Color> colorMap = new HashMap<Integer, Color>();
 		for (Color c : Color.values()) {
 			if (c.ordinal() == gameMode + pid * 2)
@@ -59,10 +62,10 @@ public class Ludo {
 		Color playerColor = colorMap.get(0);
 		
 		GameState gameState = new GameState(colorMap);
-		if (showGUI == 1) {
-			gui = new LudoGUI();
-			gui.changeState(gameState);
-		}
+		//if (showGUI == 1) {
+			//gui = new LudoGUI();
+			//gui.changeState(gameState);
+		//}
 		if (manualMode) {
 			new LudoSimpleInteractiveUI(gameState);
 		}

@@ -31,7 +31,7 @@ public class HunterAI extends AbstractAI {
 
 	private void findOptimalMoves(int i, List<Integer> diceThrow, GameState gameState, List<Move> moves, Wrapper max, int rolls) {
 		
-		int val = calculateScore(gameState,rolls);
+		double val = calculateScore(gameState,rolls);
 		if(moves.size() > max.moves.size() || (val > max.val && moves.size() == max.moves.size())) {
 			max.val = val;
 			max.moves.clear();
@@ -57,11 +57,11 @@ public class HunterAI extends AbstractAI {
 	}
 
 	@Override
-	protected int calculateScore(GameState gameState, int extraRoll) {
-		int score = 0;
+	protected double calculateScore(GameState gameState, int extraRoll) {
+		double score = 0;
 
 		//for extra roll we get
-		while(extraRoll > 0) {
+		if(extraRoll > 0) {
 			score += 20;
 			extraRoll = 0;
 		}
