@@ -29,6 +29,7 @@ public class Ludo {
 		AI ai = new NewAI(); // Default AI
 		for (int i=0; i<args.length; i++) {
 			if (args[i].equals("--manual")) manualMode = true;
+			if (args[i].equals("--showBoard")) showGUI = 1;
 			if (args[i].equals("--ai")) {
 				if (i+1 < args.length && args[i+1].equals("random"))
 					ai = new RandomAI();
@@ -51,7 +52,9 @@ public class Ludo {
 		pid--;
 		int timeLimit = Integer.valueOf(tokens[1]); // in seconds
 		int gameMode = Integer.valueOf(tokens[2]);
-		//showGUI = Integer.valueOf(tokens[3]);
+
+		if (showGUI == 0 && tokens.length >= 4) showGUI = Integer.valueOf(tokens[3]);
+
 		Map<Integer, Color> colorMap = new HashMap<Integer, Color>();
 		for (Color c : Color.values()) {
 			if (c.ordinal() == gameMode + pid * 2)
@@ -62,10 +65,10 @@ public class Ludo {
 		Color playerColor = colorMap.get(0);
 		
 		GameState gameState = new GameState(colorMap);
-		//if (showGUI == 1) {
-			//gui = new LudoGUI();
-			//gui.changeState(gameState);
-		//}
+		if (showGUI == 1) {
+			gui = new LudoGUI();
+			gui.changeState(gameState);
+		}
 		if (manualMode) {
 			new LudoSimpleInteractiveUI(gameState);
 		}
