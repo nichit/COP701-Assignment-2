@@ -122,7 +122,7 @@ public class NewAI extends AbstractAI {
 			return 52 - pieceLoc;
 		}
 		else {
-			if (pieceLoc >= 0) return 26 - pieceLoc;
+			if (pieceLoc >= 0 && pieceLoc < 26) return 26 - pieceLoc;
 			else return 52 - (pieceLoc - 26);
 		}
 	}

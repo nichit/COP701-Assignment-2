@@ -1,5 +1,4 @@
 package cop701.gui;
-
 import javax.swing.*;
 
 import cop701.common.GameState;
@@ -14,6 +13,9 @@ public class LudoGUI extends JFrame
 private static final long serialVersionUID = 1L;
 static JButton R[]=new JButton[]{new JButton("R1"),new JButton("R2"),new JButton("R3"),new JButton("R4")};
 static JButton Y[]=new JButton[]{new JButton("Y1"),new JButton("Y2"),new JButton("Y3"),new JButton("Y4")};
+static JButton G[]=new JButton[]{new JButton("G1"),new JButton("G2"),new JButton("G3"),new JButton("G4")};
+static JButton B[]=new JButton[]{new JButton("B1"),new JButton("B2"),new JButton("B3"),new JButton("B4")};
+
 
 static int x[]=new int[200];
 static int y[]=new int[200];
@@ -29,6 +31,10 @@ static int homerx[]={100,160,100,160};
 static int homery[]={100,100,160,160};
 static int homeyx[]={550,610,550,610};
 static int homeyy[]={550,550,610,610};
+static int homegx[]={550,610,550,610};
+static int homegy[]={100,100,160,160};
+static int homebx[]={100,160,100,160};
+static int homeby[]={550,550,610,610};
 public LudoGUI()
     {
     setTitle("Background Color for JFrame");
@@ -64,6 +70,30 @@ public LudoGUI()
     Y[3].setBounds(610,610,40,40);
     Y[3].setBackground(Color.YELLOW);
     background.add(Y[3]);
+    G[0].setBounds(550,100,40,40);
+    G[0].setBackground(Color.GREEN);
+    background.add(G[0]);
+    G[1].setBounds(610,100,40,40);
+    G[1].setBackground(Color.GREEN);
+    background.add(G[1]);
+    G[2].setBounds(550,160,40,40);
+    G[2].setBackground(Color.GREEN);
+    background.add(G[2]);
+    G[3].setBounds(610,160,40,40);
+    G[3].setBackground(Color.GREEN);
+    background.add(G[3]);
+    B[0].setBounds(100,550,40,40);
+    B[0].setBackground(Color.BLUE);
+    background.add(B[0]);
+    B[1].setBounds(160,550,40,40);
+    B[1].setBackground(Color.BLUE);
+    background.add(B[1]);
+    B[2].setBounds(100,610,40,40);
+    B[2].setBackground(Color.BLUE);
+    background.add(B[2]);
+    B[3].setBounds(160,610,40,40);
+    B[3].setBackground(Color.BLUE);
+    background.add(B[3]);
     
     for(int i=0;i<52;i++)
     {
@@ -108,32 +138,125 @@ public LudoGUI()
     
     public void changeState(GameState gs)
     {
-    	for(int i=0;i<4;i++)
+    	if(gs.getColorMap().get(0)==cop701.common.Color.R)
     	{
-			if(gs.getPieces()[0][i]==-1)
-			{
-				R[i].setBounds(homerx[i],homery[i],40,40);
-			}
-			else if(gs.getPieces()[0][i]==157)
-			{
-				R[i].setBounds(x2[5],y2[5],40,40);
-			}
-			else
-			{
-				R[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]],40,40);
-			}
-			if(gs.getPieces()[1][i]==-1)
-			{
-				Y[i].setBounds(homeyx[i],homeyy[i],40,40);
-			}
-			else if(gs.getPieces()[1][i]==131)
-			{
-				Y[i].setBounds(x2[17],y2[17],40,40);
-			}
-			else
-			{
-				Y[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],40,40);
-			}
+    		for(int i=0;i<4;i++)
+	    	{
+				if(gs.getPieces()[0][i]==-1)
+				{
+					R[i].setBounds(homerx[i],homery[i],40,40);
+				}
+				else if(gs.getPieces()[0][i]==999)
+				{
+					R[i].setBounds(x2[5],y2[5],40,40);
+				}
+				else
+				{
+					R[i].setBounds(x[gs.getPieces()[0][i]-13],y[gs.getPieces()[0][i]-13],40,40);
+				}
+				if(gs.getPieces()[1][i]==-1)
+				{
+					Y[i].setBounds(homeyx[i]-13,homeyy[i]-13,40,40);
+				}
+				else if(gs.getPieces()[1][i]==999)
+				{
+					Y[i].setBounds(x2[17],y2[17],40,40);
+				}
+				else
+				{
+					Y[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],40,40);
+				}
+	    	}
+    	}
+    	else if(gs.getColorMap().get(0)==cop701.common.Color.G)
+    	{
+    		for(int i=0;i<4;i++)
+	    	{
+				if(gs.getPieces()[0][i]==-1)
+				{
+					G[i].setBounds(homegx[i],homegy[i],40,40);
+				}
+				else if(gs.getPieces()[0][i]==999)
+				{
+					G[i].setBounds(x2[11],y2[11],40,40);
+				}
+				else
+				{
+					G[i].setBounds(x[gs.getPieces()[0][i]-13],y[gs.getPieces()[0][i]-13],40,40);
+				}
+				if(gs.getPieces()[1][i]==-1)
+				{
+					B[i].setBounds(homebx[i]-13,homeby[i]-13,40,40);
+				}
+				else if(gs.getPieces()[1][i]==999)
+				{
+					B[i].setBounds(x2[23],y2[23],40,40);
+				}
+				else
+				{
+					B[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],40,40);
+				}
+	    	}
+    	}
+    	else if(gs.getColorMap().get(0)==cop701.common.Color.Y)
+    	{
+    		for(int i=0;i<4;i++)
+	    	{
+				if(gs.getPieces()[0][i]==-1)
+				{
+					Y[i].setBounds(homeyx[i],homeyy[i],40,40);
+				}
+				else if(gs.getPieces()[0][i]==999)
+				{
+					Y[i].setBounds(x2[17],y2[17],40,40);
+				}
+				else
+				{
+					Y[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]],40,40);
+				}
+				if(gs.getPieces()[1][i]==-1)
+				{
+					R[i].setBounds(homerx[i],homery[i],40,40);
+				}
+				else if(gs.getPieces()[1][i]==999)
+				{
+					R[i].setBounds(x2[5],y2[5],40,40);
+				}
+				else
+				{
+					R[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],40,40);
+				}
+	    	}
+    	}
+    	else if(gs.getColorMap().get(0)==cop701.common.Color.B)
+    	{
+    		for(int i=0;i<4;i++)
+	    	{
+				if(gs.getPieces()[0][i]==-1)
+				{
+					B[i].setBounds(homebx[i],homeby[i],40,40);
+				}
+				else if(gs.getPieces()[0][i]==999)
+				{
+					B[i].setBounds(x2[23],y2[23],40,40);
+				}
+				else
+				{
+					B[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]],40,40);
+				}
+				if(gs.getPieces()[1][i]==-1)
+				{
+					G[i].setBounds(homegx[i],homegy[i],40,40);
+				}
+				else if(gs.getPieces()[1][i]==999)
+				{
+					G[i].setBounds(x2[11],y2[11],40,40);
+				}
+				else
+				{
+					G[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],40,40);
+				}
+	    	}
     	}
     }
     public static void main(String args[])
