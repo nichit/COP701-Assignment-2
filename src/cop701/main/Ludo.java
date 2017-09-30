@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import cop701.bot.AI;
 import cop701.bot.HunterAI;
-import cop701.bot.NewAI;
+import cop701.bot.TricksterAI;
 import cop701.bot.RandomAI;
 import cop701.common.Color;
 import cop701.common.GameState;
@@ -26,7 +26,7 @@ public class Ludo {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		AI ai = new NewAI(); // Default AI
+		AI ai = new TricksterAI(); // Default AI
 		for (int i=0; i<args.length; i++) {
 			if (args[i].equals("--manual")) manualMode = true;
 			if (args[i].equals("--showBoard")) showGUI = 1;
@@ -35,8 +35,8 @@ public class Ludo {
 					ai = new RandomAI();
 				else if (i+1 < args.length && args[i+1].equals("hunter"))
 					ai = new HunterAI();
-				else if (i+1 < args.length && args[i+1].equals("new"))
-					ai = new NewAI();
+				else if (i+1 < args.length && args[i+1].equals("trickster"))
+					ai = new TricksterAI();
 				i++;
 			}
 		}
