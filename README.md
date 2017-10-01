@@ -1,4 +1,4 @@
-# Hunter Bot - A Ludo Bot
+# Trickster Bot - A Ludo Bot
 
 To run the bot
 1. Clone the repository
