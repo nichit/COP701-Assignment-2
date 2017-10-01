@@ -41,7 +41,7 @@ public LudoGUI()
     setSize(800,800);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    setVisible(true);
+    
     setLayout(new BorderLayout());
     JLabel background=new JLabel(new ImageIcon(this.getClass().getResource("/resources/board.jpg")));
     add(background);
@@ -55,7 +55,7 @@ public LudoGUI()
     R[2].setBounds(100,160,40,40);
     R[2].setBackground(Color.RED);
     background.add(R[2]);
-    R[3].setBounds(325,250,40,40);
+    R[3].setBounds(160,160,40,40);
     R[3].setBackground(Color.RED);
     background.add(R[3]);
     Y[0].setBounds(550,550,40,40);
@@ -94,7 +94,7 @@ public LudoGUI()
     B[3].setBounds(160,610,40,40);
     B[3].setBackground(Color.BLUE);
     background.add(B[3]);
-    
+    setVisible(true);
     for(int i=0;i<52;i++)
     {
     	x[i]=x1[i];
@@ -138,6 +138,13 @@ public LudoGUI()
     
     public void changeState(GameState gs)
     {
+    	Integer pieces[][]=gs.getPieces();
+    	for(int i=0;i<2;i++)
+    	{
+    		for(int j=0;j<4;j++)
+    			System.out.print(pieces[i][j]);
+    		System.out.println();
+    	}
     	if(gs.getColorMap().get(0)==cop701.common.Color.R)
     	{
     		for(int i=0;i<4;i++)
@@ -152,11 +159,11 @@ public LudoGUI()
 				}
 				else
 				{
-					R[i].setBounds(x[gs.getPieces()[0][i]-13],y[gs.getPieces()[0][i]-13],40,40);
+					R[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]],40,40);
 				}
 				if(gs.getPieces()[1][i]==-1)
 				{
-					Y[i].setBounds(homeyx[i]-13,homeyy[i]-13,40,40);
+					Y[i].setBounds(homeyx[i],homeyy[i],40,40);
 				}
 				else if(gs.getPieces()[1][i]==999)
 				{
@@ -182,11 +189,11 @@ public LudoGUI()
 				}
 				else
 				{
-					G[i].setBounds(x[gs.getPieces()[0][i]-13],y[gs.getPieces()[0][i]-13],40,40);
+					G[i].setBounds(x[(gs.getPieces()[0][i]+13)%52],y[(gs.getPieces()[0][i]+13)%52],40,40);
 				}
 				if(gs.getPieces()[1][i]==-1)
 				{
-					B[i].setBounds(homebx[i]-13,homeby[i]-13,40,40);
+					B[i].setBounds(homebx[i],homeby[i],40,40);
 				}
 				else if(gs.getPieces()[1][i]==999)
 				{
@@ -194,7 +201,7 @@ public LudoGUI()
 				}
 				else
 				{
-					B[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],40,40);
+					B[i].setBounds(x[(gs.getPieces()[1][i]+13)%52],y[(gs.getPieces()[1][i]+13)%52],40,40);
 				}
 	    	}
     	}
@@ -212,7 +219,7 @@ public LudoGUI()
 				}
 				else
 				{
-					Y[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]],40,40);
+					Y[i].setBounds(x[(gs.getPieces()[0][i]+26)%52],y[(gs.getPieces()[0][i]+26)%52],40,40);
 				}
 				if(gs.getPieces()[1][i]==-1)
 				{
@@ -242,7 +249,7 @@ public LudoGUI()
 				}
 				else
 				{
-					B[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]],40,40);
+					B[i].setBounds(x[(gs.getPieces()[0][i]+39)%52],y[(gs.getPieces()[0][i]+39)%52],40,40);
 				}
 				if(gs.getPieces()[1][i]==-1)
 				{
@@ -254,7 +261,7 @@ public LudoGUI()
 				}
 				else
 				{
-					G[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],40,40);
+					G[i].setBounds(x[(gs.getPieces()[1][i]+39)%52],y[(gs.getPieces()[1][i]+39)%52],40,40);
 				}
 	    	}
     	}
