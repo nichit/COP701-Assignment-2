@@ -102,8 +102,8 @@ public class GameState {
 			}
 			
 			// Now we move our piece
-			board[pieces[player][move.getPieceId()]].updatePieces(player, -1);
-			board[nextSquareNo].updatePieces(player, 1);
+			board[pieces[player][move.getPieceId()]].addPieces(player, -1);
+			board[nextSquareNo].addPieces(player, 1);
 			pieces[player][move.getPieceId()] = nextSquareNo;
 		}
 		

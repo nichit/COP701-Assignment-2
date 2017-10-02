@@ -12,7 +12,8 @@ public class Move {
 	
 	public Move(String move) {
 		this.pieceId = Character.getNumericValue(move.charAt(1));
-		this.steps = Character.getNumericValue(move.charAt(3));
+		String[] stepsStr = move.split("_");
+		this.steps = Integer.valueOf(stepsStr[1]);
 	}
 	
 	public int getPieceId() {
