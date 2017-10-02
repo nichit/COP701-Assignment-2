@@ -184,7 +184,7 @@ public LudoGUI()
 				}
 				else
 				{
-					if(gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[0]==1 && gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[1]==0)
+					if((gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[0]+gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[1])==1)
 						R[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]],35,35);
 					else
 					{
@@ -206,7 +206,7 @@ public LudoGUI()
 				}
 				else
 				{
-					if(gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[0]==0 && gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[1]==0)
+					if((gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[0]+gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[1])==1)
 						Y[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],35,35);
 					else
 					{
@@ -233,7 +233,7 @@ public LudoGUI()
 				}
 				else
 				{
-					if(gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[0]==0 && gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[1]==0)
+					if(gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[0]+gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[1]==1)
 						G[i].setBounds(x[(gs.getPieces()[0][i]+13)%52],y[(gs.getPieces()[0][i]+13)%52],35,35);
 					else
 					{
@@ -254,7 +254,7 @@ public LudoGUI()
 				}
 				else
 				{
-					if(gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[0]==0 && gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[1]==0)
+					if(gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[0]+gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[1]==1)
 						B[i].setBounds(x[(gs.getPieces()[1][i]+13)%52],y[(gs.getPieces()[1][i]+13)%52],35,35);
 					else
 					{
@@ -281,7 +281,7 @@ public LudoGUI()
 				}
 				else
 				{
-					if(gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[0]==0 && gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[1]==0)
+					if(gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[0]+gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[1]==1)
 						Y[i].setBounds(x[(gs.getPieces()[0][i]+26)%52],y[(gs.getPieces()[0][i]+26)%52],35,35);
 					else
 					{
@@ -302,7 +302,7 @@ public LudoGUI()
 				}
 				else
 				{
-					if(gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[0]==0 && gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[1]==0)
+					if(gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[0]+ gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[1]==1)
 						R[i].setBounds(x[(gs.getPieces()[1][i]+26)%52],y[(gs.getPieces()[1][i]+26)%52],35,35);
 					else
 					{
@@ -329,7 +329,7 @@ public LudoGUI()
 				}
 				else
 				{
-					if(gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[0]==0 && gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[1]==0)
+					if(gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[0]+gs.getBoard()[gs.getPieces()[0][i]].getNoOfPieces()[1]==1)
 						B[i].setBounds(x[(gs.getPieces()[0][i]+39)%52],y[(gs.getPieces()[0][i]+39)%52],35,35);
 					else
 					{
@@ -350,7 +350,7 @@ public LudoGUI()
 				}
 				else
 				{
-					if(gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[0]==0 && gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[1]==0)
+					if(gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[0]+gs.getBoard()[gs.getPieces()[1][i]].getNoOfPieces()[1]==1)
 						G[i].setBounds(x[(gs.getPieces()[1][i]+39)%52],y[(gs.getPieces()[1][i]+39)%52],35,35);
 					else
 					{
