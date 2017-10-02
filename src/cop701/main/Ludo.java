@@ -66,8 +66,8 @@ public class Ludo {
 		
 		GameState gameState = new GameState(colorMap);
 		if (showGUI == 1) {
-			gui = new LudoGUI();
-			gui.changeState(gameState);
+            gui = new LudoGUI();
+            gui.changeState(gameState);
 		}
 		if (manualMode) {
 			new LudoSimpleInteractiveUI(gameState);

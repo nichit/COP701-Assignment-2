@@ -5,37 +5,41 @@ import cop701.common.GameState;
 
 import java.awt.*;
 import java.awt.Color;
-public class LudoGUI extends JFrame
+public class LudoGUI extends JFrame implements Runnable
 {
-/**
-	 * 
-	 */
-private static final long serialVersionUID = 1L;
-static JButton R[]=new JButton[]{new JButton("R1"),new JButton("R2"),new JButton("R3"),new JButton("R4")};
-static JButton Y[]=new JButton[]{new JButton("Y1"),new JButton("Y2"),new JButton("Y3"),new JButton("Y4")};
-static JButton G[]=new JButton[]{new JButton("G1"),new JButton("G2"),new JButton("G3"),new JButton("G4")};
-static JButton B[]=new JButton[]{new JButton("B1"),new JButton("B2"),new JButton("B3"),new JButton("B4")};
-
-
-static int x[]=new int[200];
-static int y[]=new int[200];
-static int x1[]={29,77,126,175,224,273,325,325,325,325,325,325,372,419,419,419,419,419,419,469,518,
-		567,616,665,714,714,714,665,616,567,518,469,419,419,419,419,419,419,372,325,325,325,325,
-		325,325,273,224,175,126,77,29,29};
-static int x2[]={77,126,175,224,273,325,372,372,372,372,372,372,665,616,567,518,469,419,372,372,372,372,372,372};
-static int y1[]={301,301,301,301,301,301,250,201,152,103,54,5,5,5,54,103,152,201,250,301,301,301,
-		301,301,301,348,395,395,395,395,395,395,444,493,542,591,640,689,689,689,640,591,542,493,
-		444,395,395,395,395,395,395,348};
-static int y2[]={348,348,348,348,348,348,54,103,152,201,250,301,348,348,348,348,348,348,640,591,542,493,444,395};
-static int homerx[]={100,160,100,160};
-static int homery[]={100,100,160,160};
-static int homeyx[]={550,610,550,610};
-static int homeyy[]={550,550,610,610};
-static int homegx[]={550,610,550,610};
-static int homegy[]={100,100,160,160};
-static int homebx[]={100,160,100,160};
-static int homeby[]={550,550,610,610};
-public LudoGUI()
+	/**
+		 * 
+		 */
+	private static final long serialVersionUID = 1L;
+	
+	private volatile GameState gs;
+	
+	static JButton R[]=new JButton[]{new JButton("R1"),new JButton("R2"),new JButton("R3"),new JButton("R4")};
+	static JButton Y[]=new JButton[]{new JButton("Y1"),new JButton("Y2"),new JButton("Y3"),new JButton("Y4")};
+	static JButton G[]=new JButton[]{new JButton("G1"),new JButton("G2"),new JButton("G3"),new JButton("G4")};
+	static JButton B[]=new JButton[]{new JButton("B1"),new JButton("B2"),new JButton("B3"),new JButton("B4")};
+	
+	
+	static int x[]=new int[200];
+	static int y[]=new int[200];
+	static int x1[]={29,77,126,175,224,273,325,325,325,325,325,325,372,419,419,419,419,419,419,469,518,
+			567,616,665,714,714,714,665,616,567,518,469,419,419,419,419,419,419,372,325,325,325,325,
+			325,325,273,224,175,126,77,29,29};
+	static int x2[]={77,126,175,224,273,325,372,372,372,372,372,372,665,616,567,518,469,419,372,372,372,372,372,372};
+	static int y1[]={301,301,301,301,301,301,250,201,152,103,54,5,5,5,54,103,152,201,250,301,301,301,
+			301,301,301,348,395,395,395,395,395,395,444,493,542,591,640,689,689,689,640,591,542,493,
+			444,395,395,395,395,395,395,348};
+	static int y2[]={348,348,348,348,348,348,54,103,152,201,250,301,348,348,348,348,348,348,640,591,542,493,444,395};
+	static int homerx[]={100,160,100,160};
+	static int homery[]={100,100,160,160};
+	static int homeyx[]={550,610,550,610};
+	static int homeyy[]={550,550,610,610};
+	static int homegx[]={550,610,550,610};
+	static int homegy[]={100,100,160,160};
+	static int homebx[]={100,160,100,160};
+	static int homeby[]={550,550,610,610};
+		
+	public LudoGUI()
     {
     setTitle("Ludo");
     setSize(800,800);
@@ -136,7 +140,7 @@ public LudoGUI()
     	}
     }
     
-    public void changeState(GameState gs)
+    public void run()
     {
     	Integer pieces[][]=gs.getPieces();
     	for(int i=0;i<2;i++)
@@ -153,7 +157,7 @@ public LudoGUI()
 				{
 					R[i].setBounds(homerx[i],homery[i],40,40);
 				}
-				else if(gs.getPieces()[0][i]==999)
+				else if(gs.getPieces()[0][i]==157)
 				{
 					R[i].setBounds(x2[5],y2[5],40,40);
 				}
@@ -165,7 +169,7 @@ public LudoGUI()
 				{
 					Y[i].setBounds(homeyx[i],homeyy[i],40,40);
 				}
-				else if(gs.getPieces()[1][i]==999)
+				else if(gs.getPieces()[1][i]==131)
 				{
 					Y[i].setBounds(x2[17],y2[17],40,40);
 				}
@@ -183,7 +187,7 @@ public LudoGUI()
 				{
 					G[i].setBounds(homegx[i],homegy[i],40,40);
 				}
-				else if(gs.getPieces()[0][i]==999)
+				else if(gs.getPieces()[0][i]==157)
 				{
 					G[i].setBounds(x2[11],y2[11],40,40);
 				}
@@ -195,7 +199,7 @@ public LudoGUI()
 				{
 					B[i].setBounds(homebx[i],homeby[i],40,40);
 				}
-				else if(gs.getPieces()[1][i]==999)
+				else if(gs.getPieces()[1][i]==131)
 				{
 					B[i].setBounds(x2[23],y2[23],40,40);
 				}
@@ -213,7 +217,7 @@ public LudoGUI()
 				{
 					Y[i].setBounds(homeyx[i],homeyy[i],40,40);
 				}
-				else if(gs.getPieces()[0][i]==999)
+				else if(gs.getPieces()[0][i]==157)
 				{
 					Y[i].setBounds(x2[17],y2[17],40,40);
 				}
@@ -225,7 +229,7 @@ public LudoGUI()
 				{
 					R[i].setBounds(homerx[i],homery[i],40,40);
 				}
-				else if(gs.getPieces()[1][i]==999)
+				else if(gs.getPieces()[1][i]==131)
 				{
 					R[i].setBounds(x2[5],y2[5],40,40);
 				}
@@ -243,7 +247,7 @@ public LudoGUI()
 				{
 					B[i].setBounds(homebx[i],homeby[i],40,40);
 				}
-				else if(gs.getPieces()[0][i]==999)
+				else if(gs.getPieces()[0][i]==157)
 				{
 					B[i].setBounds(x2[23],y2[23],40,40);
 				}
@@ -255,7 +259,7 @@ public LudoGUI()
 				{
 					G[i].setBounds(homegx[i],homegy[i],40,40);
 				}
-				else if(gs.getPieces()[1][i]==999)
+				else if(gs.getPieces()[1][i]==131)
 				{
 					G[i].setBounds(x2[11],y2[11],40,40);
 				}
@@ -265,11 +269,23 @@ public LudoGUI()
 				}
 	    	}
     	}
+    	
     }
+    
+    public void changeState(GameState gs) {
+    	setGameState(gs);
+    	SwingUtilities.invokeLater(this);
+    }
+    
+    private synchronized void setGameState(GameState gs) {
+    	this.gs = gs;
+    }
+    
     public static void main(String args[])
     {
     	System.err.println(x.length+" "+y.length);
 	    LudoGUI gui=new LudoGUI();
 	    gui.testState(R[3]);
     }
+
 } 
