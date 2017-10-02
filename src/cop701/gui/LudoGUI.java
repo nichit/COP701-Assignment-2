@@ -25,7 +25,7 @@ static int y[]=new int[200];
 static int x1[]={29,77,126,175,224,273,325,325,325,325,325,325,372,419,419,419,419,419,419,469,518,
 		567,616,665,714,714,714,665,616,567,518,469,419,419,419,419,419,419,372,325,325,325,325,
 		325,325,273,224,175,126,77,29,29};
-static int x2[]={67,116,165,214,263,315,362,362,362,362,362,362,655,606,557,508,459,409,362,362,362,362,362,362};
+static int x2[]={57,106,155,204,253,305,352,352,352,352,352,352,645,596,547,498,449,399,352,352,352,352,352,352};
 //static int x2[]={77,126,175,224,273,325,372,372,372,372,372,372,665,616,567,518,469,419,372,372,372,372,372,372};
 static int y1[]={301,301,301,301,301,301,250,201,152,103,54,5,5,5,54,103,152,201,250,301,301,301,
 		301,301,301,348,395,395,395,395,395,395,444,493,542,591,640,689,689,689,640,591,542,493,
@@ -188,7 +188,7 @@ public LudoGUI()
 						R[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]],35,35);
 					else
 					{
-						R[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]]+((i+0)*2),35,35);
+						R[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]]+((i+0)*4),35,35);
 					}
 				}
 				
@@ -210,7 +210,7 @@ public LudoGUI()
 						Y[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],35,35);
 					else
 					{
-						Y[i].setBounds(x[gs.getPieces()[1][i]]+((i+1)*2),y[gs.getPieces()[1][i]],35,35);
+						Y[i].setBounds(x[gs.getPieces()[1][i]]+((i+1)*4),y[gs.getPieces()[1][i]],35,35);
 					}
 				}
 	    	}
@@ -237,7 +237,7 @@ public LudoGUI()
 						G[i].setBounds(x[(gs.getPieces()[0][i]+13)%52],y[(gs.getPieces()[0][i]+13)%52],35,35);
 					else
 					{
-						G[i].setBounds(x[(gs.getPieces()[0][i]+13)%52],y[(gs.getPieces()[0][i]+13)%52]+((i+0)*2),35,35);
+						G[i].setBounds(x[(gs.getPieces()[0][i]+13)%52],y[(gs.getPieces()[0][i]+13)%52]+((i+0)*4),35,35);
 					}
 				}
     			if(gs.getPieces()[1][i]>100)
@@ -258,7 +258,7 @@ public LudoGUI()
 						B[i].setBounds(x[(gs.getPieces()[1][i]+13)%52],y[(gs.getPieces()[1][i]+13)%52],35,35);
 					else
 					{
-						B[i].setBounds(x[(gs.getPieces()[1][i]+13)%52]+((i+0)*2),y[(gs.getPieces()[1][i]+13)%52],35,35);
+						B[i].setBounds(x[(gs.getPieces()[1][i]+13)%52]+((i+0)*4),y[(gs.getPieces()[1][i]+13)%52],35,35);
 					}
 				}
 	    	}
@@ -285,7 +285,7 @@ public LudoGUI()
 						Y[i].setBounds(x[(gs.getPieces()[0][i]+26)%52],y[(gs.getPieces()[0][i]+26)%52],35,35);
 					else
 					{
-						Y[i].setBounds(x[(gs.getPieces()[0][i]+26)%52],y[(gs.getPieces()[0][i]+26)%52]+((i+0)*2),35,35);
+						Y[i].setBounds(x[(gs.getPieces()[0][i]+26)%52],y[(gs.getPieces()[0][i]+26)%52]+((i+0)*4),35,35);
 					}
 				}
     			if(gs.getPieces()[1][i]>100)
@@ -306,7 +306,7 @@ public LudoGUI()
 						R[i].setBounds(x[(gs.getPieces()[1][i]+26)%52],y[(gs.getPieces()[1][i]+26)%52],35,35);
 					else
 					{
-						R[i].setBounds(x[(gs.getPieces()[1][i]+26)%52]+((i+1)*2),y[(gs.getPieces()[1][i]+26)%52],35,35);
+						R[i].setBounds(x[(gs.getPieces()[1][i]+26)%52]+((i+1)*4),y[(gs.getPieces()[1][i]+26)%52],35,35);
 					}
 				}
 	    	}
@@ -333,7 +333,7 @@ public LudoGUI()
 						B[i].setBounds(x[(gs.getPieces()[0][i]+39)%52],y[(gs.getPieces()[0][i]+39)%52],35,35);
 					else
 					{
-						B[i].setBounds(x[(gs.getPieces()[0][i]+39)%52],y[(gs.getPieces()[0][i]+39)%52]+((i+0)*2),35,35);
+						B[i].setBounds(x[(gs.getPieces()[0][i]+39)%52],y[(gs.getPieces()[0][i]+39)%52]+((i+0)*4),35,35);
 					}
 				}
     			if(gs.getPieces()[1][i]>100)
@@ -354,7 +354,7 @@ public LudoGUI()
 						G[i].setBounds(x[(gs.getPieces()[1][i]+39)%52],y[(gs.getPieces()[1][i]+39)%52],35,35);
 					else
 					{
-						G[i].setBounds(x[(gs.getPieces()[1][i]+39)%52]+((i+1)*2),y[(gs.getPieces()[1][i]+39)%52],35,35);
+						G[i].setBounds(x[(gs.getPieces()[1][i]+39)%52]+((i+1)*4),y[(gs.getPieces()[1][i]+39)%52],35,35);
 					}
 				}
 	    	}
