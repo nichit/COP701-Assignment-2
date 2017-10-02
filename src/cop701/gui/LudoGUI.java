@@ -37,7 +37,7 @@ static int homebx[]={100,160,100,160};
 static int homeby[]={550,550,610,610};
 public LudoGUI()
     {
-    setTitle("Background Color for JFrame");
+    setTitle("Ludo");
     setSize(800,800);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -142,8 +142,8 @@ public LudoGUI()
     	for(int i=0;i<2;i++)
     	{
     		for(int j=0;j<4;j++)
-    			System.out.print(pieces[i][j]);
-    		System.out.println();
+    			System.err.print(pieces[i][j]);
+    		System.err.println();
     	}
     	if(gs.getColorMap().get(0)==cop701.common.Color.R)
     	{
@@ -268,7 +268,7 @@ public LudoGUI()
     }
     public static void main(String args[])
     {
-    	System.out.println(x.length+" "+y.length);
+    	System.err.println(x.length+" "+y.length);
 	    LudoGUI gui=new LudoGUI();
 	    gui.testState(R[3]);
     }
