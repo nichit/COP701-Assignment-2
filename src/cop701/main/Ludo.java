@@ -144,6 +144,12 @@ public class Ludo {
 				System.out.println(moveStr); System.out.flush();
 				printPieces(gameState);
 				if (showGUI == 1) gui.changeState(gameState);
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			// Get opponent dice / REPEAT

@@ -47,80 +47,81 @@ public LudoGUI()
     setSize(800,800);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
-    R[3].setBorder(null);
-    setLayout(new BorderLayout());
+    R[3].setMargin(new Insets(0,0,0,0));
+    //setLayout(new BorderLayout());
+    setLayout(new FlowLayout(FlowLayout.CENTER));
     JLabel background=new JLabel(new ImageIcon(this.getClass().getResource("/resources/board.jpg")));
     add(background);
     background.setVisible(true);
     R[0].setBounds(100,100,35,35);
     R[0].setBackground(Color.RED);
-    R[0].setBorder(null);
+    R[0].setMargin(new Insets(0,0,0,0));
     background.add(R[0]);
     R[1].setBounds(160,100,35,35);
     R[1].setBackground(Color.RED);
-    R[1].setBorder(null);
+    R[1].setMargin(new Insets(0,0,0,0));
     background.add(R[1]);
     R[2].setBounds(100,160,35,35);
     R[2].setBackground(Color.RED);
-    R[2].setBorder(null);
+    R[2].setMargin(new Insets(0,0,0,0));
     background.add(R[2]);
     R[3].setBounds(160,160,35,35);
     R[3].setBackground(Color.RED);
-    R[3].setBorder(null);
+    R[3].setMargin(new Insets(0,0,0,0));
     background.add(R[3]);
     Y[0].setBounds(550,550,35,35);
     Y[0].setBackground(Color.YELLOW);
-    Y[0].setBorder(null);
+    Y[0].setMargin(new Insets(0,0,0,0));
     background.add(Y[0]);
     Y[1].setBounds(610,550,35,35);
     Y[1].setBackground(Color.YELLOW);
-    Y[1].setBorder(null);
+    Y[1].setMargin(new Insets(0,0,0,0));
     background.add(Y[1]);
     Y[2].setBounds(550,610,35,35);
     Y[2].setBackground(Color.YELLOW);
-    Y[2].setBorder(null);
+    Y[2].setMargin(new Insets(0,0,0,0));
     background.add(Y[2]);
     Y[3].setBounds(610,610,35,35);
     Y[3].setBackground(Color.YELLOW);
-    Y[3].setBorder(null);
+    Y[3].setMargin(new Insets(0,0,0,0));
     background.add(Y[3]);
     G[0].setBounds(550,100,35,35);
     G[0].setBackground(Color.GREEN);
-    G[0].setBorder(null);
+    G[0].setMargin(new Insets(0,0,0,0));
     background.add(G[0]);
     G[1].setBounds(610,100,35,35);
     G[1].setBackground(Color.GREEN);
-    G[1].setBorder(null);
+    G[1].setMargin(new Insets(0,0,0,0));
     background.add(G[1]);
     G[2].setBounds(550,160,35,35);
     G[2].setBackground(Color.GREEN);
-    G[2].setBorder(null);
+    G[2].setMargin(new Insets(0,0,0,0));
     background.add(G[2]);
     G[3].setBounds(610,160,35,35);
     G[3].setBackground(Color.GREEN);
-    G[3].setBorder(null);
+    G[3].setMargin(new Insets(0,0,0,0));
     background.add(G[3]);
     B[0].setBounds(100,550,35,35);
     B[0].setBackground(Color.BLUE);
-    B[0].setBorder(null);
+    B[0].setMargin(new Insets(0,0,0,0));
     background.add(B[0]);
     B[1].setBounds(160,550,35,35);
     B[1].setBackground(Color.BLUE);
-    B[1].setBorder(null);
+    B[1].setMargin(new Insets(0,0,0,0));
     background.add(B[1]);
     B[2].setBounds(100,610,35,35);
     B[2].setBackground(Color.BLUE);
-    B[2].setBorder(null);
+    B[2].setMargin(new Insets(0,0,0,0));
     background.add(B[2]);
     B[3].setBounds(160,610,35,35);
     B[3].setBackground(Color.BLUE);
-    B[3].setBorder(null);
+    B[3].setMargin(new Insets(0,0,0,0));
     background.add(B[3]);
     setVisible(true);
     for(int i=0;i<52;i++)
     {
-    	x[i]=x1[i];
-    	y[i]=y1[i];
+    	x[i]=x1[i]-20;
+    	y[i]=y1[i]+5;
     }
     for(int i=0;i<6;i++)
     {
@@ -202,7 +203,7 @@ public LudoGUI()
 						Y[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]],35,35);
 					else
 					{
-						Y[i].setBounds(x[gs.getPieces()[1][i]],y[gs.getPieces()[1][i]]+((i+1)*2),35,35);
+						Y[i].setBounds(x[gs.getPieces()[1][i]]+((i+1)*2),y[gs.getPieces()[1][i]],35,35);
 					}
 				}
 	    	}
@@ -242,7 +243,7 @@ public LudoGUI()
 						B[i].setBounds(x[(gs.getPieces()[1][i]+13)%52],y[(gs.getPieces()[1][i]+13)%52],35,35);
 					else
 					{
-						B[i].setBounds(x[(gs.getPieces()[1][i]+13)%52],y[(gs.getPieces()[1][i]+13)%52]+((i+1)*2),35,35);
+						B[i].setBounds(x[(gs.getPieces()[1][i]+13)%52]+((i+0)*2),y[(gs.getPieces()[1][i]+13)%52],35,35);
 					}
 				}
 	    	}
@@ -282,7 +283,7 @@ public LudoGUI()
 						R[i].setBounds(x[(gs.getPieces()[1][i]+26)%52],y[(gs.getPieces()[1][i]+26)%52],35,35);
 					else
 					{
-						R[i].setBounds(x[(gs.getPieces()[1][i]+26)%52],y[(gs.getPieces()[1][i]+26)%52]+((i+1)*2),35,35);
+						R[i].setBounds(x[(gs.getPieces()[1][i]+26)%52]+((i+1)*2),y[(gs.getPieces()[1][i]+26)%52],35,35);
 					}
 				}
 	    	}
@@ -322,7 +323,7 @@ public LudoGUI()
 						G[i].setBounds(x[(gs.getPieces()[1][i]+39)%52],y[(gs.getPieces()[1][i]+39)%52],35,35);
 					else
 					{
-						G[i].setBounds(x[(gs.getPieces()[1][i]+39)%52],y[(gs.getPieces()[1][i]+39)%52]+((i+1)*2),35,35);
+						G[i].setBounds(x[(gs.getPieces()[1][i]+39)%52]+((i+1)*2),y[(gs.getPieces()[1][i]+39)%52],35,35);
 					}
 				}
 	    	}
