@@ -25,10 +25,8 @@ static int y[]=new int[200];
 static int x1[]={29,77,126,175,224,273,325,325,325,325,325,325,372,419,419,419,419,419,419,469,518,
 		567,616,665,714,714,714,665,616,567,518,469,419,419,419,419,419,419,372,325,325,325,325,
 		325,325,273,224,175,126,77,29,29};
-static int x2[]={77,126,175,224,273,325,372,372,372,372,372,372,665,616,567,518,469,419,372,372,372,372,372,372};
-/*static int y1[]={301,301,301,301,301,301,250,201,152,103,54,5,5,5,54,103,152,201,250,301,301,301,
-		301,301,301,348,395,395,395,395,395,395,444,493,542,591,640,689,689,689,640,591,542,493,
-		444,395,395,395,395,395,395,348};*/
+static int x2[]={67,116,165,214,263,315,362,362,362,362,362,362,655,606,557,508,459,409,362,362,362,362,362,362};
+//static int x2[]={77,126,175,224,273,325,372,372,372,372,372,372,665,616,567,518,469,419,372,372,372,372,372,372};
 static int y1[]={301,301,301,301,301,301,250,201,152,103,54,5,5,5,54,103,152,201,250,301,301,301,
 		301,301,301,348,395,395,395,395,395,395,444,493,542,591,640,689,689,689,640,591,542,493,
 		444,395,395,395,395,395,395,348};
@@ -172,7 +170,11 @@ public LudoGUI()
     	{
     		for(int i=0;i<4;i++)
 	    	{
-				if(gs.getPieces()[0][i]==-1)
+    			if(gs.getPieces()[0][i]>100)
+    			{
+    				R[i].setBounds(x2[gs.getPieces()[0][i]-152],y2[gs.getPieces()[0][i]-152],35,35);
+    			}
+    			else if(gs.getPieces()[0][i]==-1)
 				{
 					R[i].setBounds(homerx[i],homery[i],35,35);
 				}
@@ -189,7 +191,12 @@ public LudoGUI()
 						R[i].setBounds(x[gs.getPieces()[0][i]],y[gs.getPieces()[0][i]]+((i+0)*2),35,35);
 					}
 				}
-				if(gs.getPieces()[1][i]==-1)
+				
+				if(gs.getPieces()[1][i]>100)
+    			{
+    				Y[i].setBounds(x2[gs.getPieces()[1][i]-114],y2[gs.getPieces()[1][i]-114],35,35);
+    			}
+				else if(gs.getPieces()[1][i]==-1)
 				{
 					Y[i].setBounds(homeyx[i],homeyy[i],35,35);
 				}
@@ -212,7 +219,11 @@ public LudoGUI()
     	{
     		for(int i=0;i<4;i++)
 	    	{
-				if(gs.getPieces()[0][i]==-1)
+    			if(gs.getPieces()[0][i]>100)
+    			{
+    				G[i].setBounds(x2[gs.getPieces()[0][i]-146],y2[gs.getPieces()[0][i]-146],35,35);
+    			}
+				else if(gs.getPieces()[0][i]==-1)
 				{
 					G[i].setBounds(homegx[i],homegy[i],35,35);
 				}
@@ -229,7 +240,11 @@ public LudoGUI()
 						G[i].setBounds(x[(gs.getPieces()[0][i]+13)%52],y[(gs.getPieces()[0][i]+13)%52]+((i+0)*2),35,35);
 					}
 				}
-				if(gs.getPieces()[1][i]==-1)
+    			if(gs.getPieces()[1][i]>100)
+    			{
+    				B[i].setBounds(x2[gs.getPieces()[1][i]-108],y2[gs.getPieces()[1][i]-108],35,35);
+    			}
+				else if(gs.getPieces()[1][i]==-1)
 				{
 					B[i].setBounds(homebx[i],homeby[i],35,35);
 				}
@@ -252,7 +267,11 @@ public LudoGUI()
     	{
     		for(int i=0;i<4;i++)
 	    	{
-				if(gs.getPieces()[0][i]==-1)
+    			if(gs.getPieces()[0][i]>100)
+    			{
+    				Y[i].setBounds(x2[gs.getPieces()[0][i]-140],y2[gs.getPieces()[0][i]-140],35,35);
+    			}
+				else if(gs.getPieces()[0][i]==-1)
 				{
 					Y[i].setBounds(homeyx[i],homeyy[i],35,35);
 				}
@@ -269,7 +288,11 @@ public LudoGUI()
 						Y[i].setBounds(x[(gs.getPieces()[0][i]+26)%52],y[(gs.getPieces()[0][i]+26)%52]+((i+0)*2),35,35);
 					}
 				}
-				if(gs.getPieces()[1][i]==-1)
+    			if(gs.getPieces()[1][i]>100)
+    			{
+    				R[i].setBounds(x2[gs.getPieces()[1][i]-126],y2[gs.getPieces()[1][i]-126],35,35);
+    			}
+				else if(gs.getPieces()[1][i]==-1)
 				{
 					R[i].setBounds(homerx[i],homery[i],35,35);
 				}
@@ -292,7 +315,11 @@ public LudoGUI()
     	{
     		for(int i=0;i<4;i++)
 	    	{
-				if(gs.getPieces()[0][i]==-1)
+    			if(gs.getPieces()[0][i]>100)
+    			{
+    				B[i].setBounds(x2[gs.getPieces()[0][i]-134],y2[gs.getPieces()[0][i]-134],35,35);
+    			}
+				else if(gs.getPieces()[0][i]==-1)
 				{
 					B[i].setBounds(homebx[i],homeby[i],35,35);
 				}
@@ -309,7 +336,11 @@ public LudoGUI()
 						B[i].setBounds(x[(gs.getPieces()[0][i]+39)%52],y[(gs.getPieces()[0][i]+39)%52]+((i+0)*2),35,35);
 					}
 				}
-				if(gs.getPieces()[1][i]==-1)
+    			if(gs.getPieces()[1][i]>100)
+    			{
+    				G[i].setBounds(x2[gs.getPieces()[1][i]-120],y2[gs.getPieces()[1][i]-120],35,35);
+    			}
+				else if(gs.getPieces()[1][i]==-1)
 				{
 					G[i].setBounds(homegx[i],homegy[i],35,35);
 				}
