@@ -74,12 +74,17 @@ public class TricksterAI extends AbstractAI {
 		
 		//our pieces evaluation
 		for(int j=0; j<4; ++j) {
-			//our piece at star
-			if(pieces[0][j] != -1 && gameState.getBoard()[pieces[0][j]].getIsStar())
-				score += 28;
 			//our piece is on run
 			if(pieces[0][j] != -1) {
 				score += 40;
+				//our piece at star
+				if(gameState.getBoard()[pieces[0][j]].getIsStar()) {
+					if(pieces[0][j] > 27)
+						score += 250;
+					else
+						score += 28;
+				}
+									
 				for(int k=0; k<4; ++k) {
 					if(pieces[0][j] > 100)
 						continue;
@@ -107,14 +112,20 @@ public class TricksterAI extends AbstractAI {
 					if (pieces[0][j] <= 27) // aggressive
 						score += captureProb*400 - sacrificeProb*100 + pieces[0][j];
 					else
-						score += captureProb*100 - sacrificeProb*400 + pieces[0][j];
+					{
+						if (pieces[0][j] <= lastOppPos(pieces))
+							score += captureProb*200 - sacrificeProb*200 + pieces[0][j];
+						else
+							score += captureProb*120 - sacrificeProb*333 + pieces[0][j];
+					}
+						
 				}
 			}	
 		}
 		
 		for(int k=0; k<4; ++k)
 			if(pieces[1][k] == -1)
-				score += 1000;
+				score += 10000;
 		
 		
 		return score;
@@ -130,6 +141,16 @@ public class TricksterAI extends AbstractAI {
 
 			else return 52 - (pieceLoc - 26);
 		}
+	}
+	
+	private int lastOppPos(Integer[][] pieces) {
+		int ret = 1000;
+		for (int i=0; i<4; i++) {
+			if (pieces[1][i] == -1) return -1;
+			if (pieces[1][i] > 26) ret = Math.min(ret,pieces[1][i]);
+		}
+		if (ret == 1000) return -1; // if all pieces on winning side, then we should be defensive
+		return ret;
 	}
 
 }

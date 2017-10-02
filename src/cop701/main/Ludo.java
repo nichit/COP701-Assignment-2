@@ -21,6 +21,7 @@ public class Ludo {
 	private static boolean manualMode = false;
 	private static LudoGUI gui;
 	private static int showGUI = 0;
+	private static int delay = 0;
 	/**
 	 * We assume we are always player 0, because 0 is a lucky number :)
 	 * @param args
@@ -29,6 +30,10 @@ public class Ludo {
 		AI ai = new TricksterAI(); // Default AI
 		for (int i=0; i<args.length; i++) {
 			if (args[i].equals("--manual")) manualMode = true;
+			if (args[i].equals("--delay")) {
+				if (i+1 < args.length) delay = Integer.valueOf(args[i+1]); 
+				else delay = 500;
+			}
 			if (args[i].equals("--showBoard")) showGUI = 1;
 			if (args[i].equals("--ai")) {
 				if (i+1 < args.length && args[i+1].equals("random"))
@@ -145,7 +150,7 @@ public class Ludo {
 				printPieces(gameState);
 				if (showGUI == 1) gui.changeState(gameState);
 				try {
-					Thread.sleep(500);
+					Thread.sleep(delay);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
